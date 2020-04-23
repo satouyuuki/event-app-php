@@ -1,3 +1,2 @@
 <?php
-phpinfo();
-
+echo 'event-app-php.com';
