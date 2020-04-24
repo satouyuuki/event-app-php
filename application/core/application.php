@@ -21,26 +21,37 @@ class Application {
                 if(strlen($this->url_action) == 0) {
                     $this->url_controller->index();
                 }
-                else {
-                    header('location: ' . URL . 'problem');
-                }
+                // else {
+                //     header('location: ' . URL . 'problem');
+                // }
             }
         }
-        else {
-            header('location: ' . URL . 'problem');
-        }
+        // else {
+            // header('location: ' . URL . 'problem');
+        // }
     }
     /**
      * Split params
      */
     private function splitUrl()
     {
-        $_params = $_GET;
-        $this->url_controller = isset($_params['controller']) ? $_params['controller'] : "home";
-        $this->url_action = isset($_params['action']) ? $_params['action'] : "index";
-        unset($_params['controller']);
-        unset($_params['action']);
-        $this->url_params = $_params;
+        // $_params = $_GET;
+        // $this->url_controller = isset($_params['controller']) ? $_params['controller'] : "home";
+        // $this->url_action = isset($_params['action']) ? $_params['action'] : "index";
+        // unset($_params['controller']);
+        // unset($_params['action']);
+        // $this->url_params = $_params;
+        if(isset($_GET['url'])) {
+            $url = explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));
+            $this->url_controller = isset($url[0]) ? $url[0] : "events";
+            $this->url_action = isset($url[1]) ? $url[1] : "index";
+            unset($url[0]);
+            unset($url[1]);
+            $this->url_params = $url;
+        } else {
+            $this->url_controller = "events";
+            $this->url_action = "index";
+        }
     }
     /**
      * redirect to login if session not found

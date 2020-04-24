@@ -15,13 +15,13 @@
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-            <a class="nav-link" href="/src/events">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/events/index">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/src/events">イベント一覧</a>
+            <a class="nav-link" href="/events/index">イベント一覧</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/src/users">ユーザ一覧</a>
+            <a class="nav-link" href="/users/index">ユーザ一覧</a>
         </li>
         </ul>
     </div>
