@@ -31,11 +31,11 @@ class Controller {
      */
     public function view($view, $template = true) {
         if($template) {
-            require APP . 'view/_template/header.php';
+            require APP . 'view/_templates/header.php';
         }
         require APP . $view;
         if($template) {
-            require APP . 'view/_template/footer.php';
+            require APP . 'view/_templates/footer.php';
         }
     }
 }

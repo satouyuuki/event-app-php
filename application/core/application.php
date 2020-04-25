@@ -13,7 +13,7 @@ class Application {
         $this->splitUrl();
         // $this->security();
         if(file_exists(APP . 'controller/' . $this->url_controller . '.php')) {
-            require APP . 'controller/' . $this->url_controller . '.php';
+            // require APP . 'controller/' . $this->url_controller . '.php';
             $instans_url = 'Application\\controller\\' . $this->url_controller;
             $this->url_controller = new $instans_url;
             if(method_exists($this->url_controller, $this->url_action)) {
@@ -23,14 +23,14 @@ class Application {
                 if(strlen($this->url_action) == 0) {
                     $this->url_controller->index();
                 }
-                // else {
-                //     header('location: ' . URL . 'problem');
-                // }
+                else {
+                    header('location: ' . URL . 'problem');
+                }
             }
         }
-        // else {
-            // header('location: ' . URL . 'problem');
-        // }
+        else {
+            header('location: ' . URL . 'problem');
+        }
     }
 
     public function getController() {
