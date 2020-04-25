@@ -55,6 +55,19 @@
                     href="/users/index"
                     >ユーザ一覧</a>
                 </li>
+                <li class="nav-item">
+                    <a 
+                    class="nav-link
+                    <?php 
+                        $url= $_SERVER['REQUEST_URI'];
+                        if(strstr($url, 'records') == true) {
+                            echo 'active';
+                        }
+                    ?>
+                    " 
+                    href="/records/index"
+                    >イベント履歴</a>
+                </li>
             </ul>
         </div>
     </nav>
