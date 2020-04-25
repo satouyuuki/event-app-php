@@ -29,10 +29,31 @@
                     <a class="nav-link" href="/events/index">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/events/index">イベント一覧</a>
+                    <a 
+                    class="nav-link 
+                    <?php 
+                        $url= $_SERVER['REQUEST_URI'];
+                        if(strstr($url, 'events') == true) {
+                            echo 'active';
+                        }
+                    ?>
+                    " 
+                    href="/events/index"
+                    >
+                    イベント一覧</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/users/index">ユーザ一覧</a>
+                    <a 
+                    class="nav-link
+                    <?php 
+                        $url= $_SERVER['REQUEST_URI'];
+                        if(strstr($url, 'users') == true) {
+                            echo 'active';
+                        }
+                    ?>
+                    " 
+                    href="/users/index"
+                    >ユーザ一覧</a>
                 </li>
             </ul>
         </div>
