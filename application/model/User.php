@@ -18,4 +18,54 @@ class User {
         $query->execute($parameters);
         return $query->fetchAll();
     }
+    public function getUser($id) {
+
+        $sql = "select * from users where id = :id";
+        $query = $this->db->prepare($sql);
+        $parameters = array(
+            ':id' => $id,
+        );
+        $query->execute($parameters);
+        return $query->fetchAll();
+    }
+
+    public function deleteUser($id) {
+        $sql = "delete from users where id = :id";
+        $query = $this->db->prepare($sql);
+        $parameters = array(
+            ':id' => $id,
+        );
+        return $query->execute($parameters);
+    }
+
+    public function addUser($post) {
+        $name = $post['name'];
+        $date = $post['date'];
+        $text = $post['text'];
+        $sql = "insert into users (name, date, text) values (:name, :date, :text)";
+        $query = $this->db->prepare($sql);
+        $parameters = array(
+            ':name' => $name,
+            ':date' => $date,
+            ':text' => $text,
+        );
+        $query->execute($parameters);
+        return $query->fetchAll();
+    }
+
+    public function editUser($post, $id) {
+        $name = $post['name'];
+        $date = $post['date'];
+        $text = $post['text'];
+        $sql = "update users set name=:name, date=:date, text=:text where id=:id";
+
+        $query = $this->db->prepare($sql);
+        $parameters = array(
+            ':name' => $name,
+            ':date' => $date,
+            ':text' => $text,
+            ':id' => $id,
+        );
+        return $query->execute($parameters);
+    }
 }
