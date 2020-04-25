@@ -1,13 +1,13 @@
 <?php
-
-require APP . 'model/Event.php';
+namespace Application\controller;
+use Application\model\Event;
+use Application\core\Controller;
 
 class events extends Controller {
 
     public function index() {
         $eventModel = new Event($this->db);
         $events = $eventModel->getAllEvents();
-        // var_dump($events);
         require APP . 'view/_templates/header.php';
         require APP . 'view/events/index.php';
         require APP . 'view/_templates/footer.php';
@@ -28,7 +28,6 @@ class events extends Controller {
         $id = $id[0];
         $eventModel = new Event($this->db);
         $event = $eventModel->getEvent($id);
-        // var_dump($events);
         require APP . 'view/_templates/header.php';
         require APP . 'view/events/detail.php';
         require APP . 'view/_templates/footer.php';
@@ -46,7 +45,6 @@ class events extends Controller {
         }
         $eventModel = new Event($this->db);
         $event = $eventModel->getEvent($id);
-        // var_dump($events);
         require APP . 'view/_templates/header.php';
         require APP . 'view/events/edit.php';
         require APP . 'view/_templates/footer.php';

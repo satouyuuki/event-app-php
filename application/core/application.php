@@ -1,4 +1,5 @@
 <?php
+namespace Application\core;
 
 class Application {
     private $url_controller = null;
@@ -13,7 +14,8 @@ class Application {
         // $this->security();
         if(file_exists(APP . 'controller/' . $this->url_controller . '.php')) {
             require APP . 'controller/' . $this->url_controller . '.php';
-            $this->url_controller = new $this->url_controller();
+            $instans_url = 'Application\\controller\\' . $this->url_controller;
+            $this->url_controller = new $instans_url;
             if(method_exists($this->url_controller, $this->url_action)) {
                 call_user_func_array(array($this->url_controller, $this->url_action), $this->url_params);
             }
@@ -30,17 +32,17 @@ class Application {
             // header('location: ' . URL . 'problem');
         // }
     }
+
+    public function getController() {
+        return $this->url_controller;
+    }
+
+
     /**
      * Split params
      */
     private function splitUrl()
     {
-        // $_params = $_GET;
-        // $this->url_controller = isset($_params['controller']) ? $_params['controller'] : "home";
-        // $this->url_action = isset($_params['action']) ? $_params['action'] : "index";
-        // unset($_params['controller']);
-        // unset($_params['action']);
-        // $this->url_params = $_params;
         if(isset($_GET['url'])) {
             $url = explode('/', filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));
             $this->url_controller = isset($url[0]) ? $url[0] : "events";

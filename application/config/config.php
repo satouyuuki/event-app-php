@@ -1,4 +1,9 @@
 <?php
+namespace Application\config;
+// require '../../vendor/autoload.php';
+$dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
+$dotenv->load();
+
 if(!isset($_SESSION['token']))
     $_SESSION['token']=md5(date('dmyis'));
 define('ENVIRONMENT', 'development');
@@ -12,10 +17,9 @@ define('URL_PROTOCOL', '//');
 define('URL_DOMAIN', $_SERVER['HTTP_HOST']);
 define('URL_SUB_FOLDER', str_replace(URL_PUBLIC_FOLDER, '', dirname($_SERVER['SCRIPT_NAME'])));
 define('URL', URL_PROTOCOL . URL_DOMAIN . URL_SUB_FOLDER);
-// var_dump($_SERVER['SCRIPT_NAME']);
 define('DB_TYPE', 'mysql');
-define('DB_HOST', '');
-define('DB_NAME', '');
-define('DB_USER', '');
-define('DB_PASS', '');
-define('DB_CHARSET', 'utf8');
+define('DB_HOST', getenv("DB_HOST"));
+define('DB_NAME', getenv("DB_NAME"));
+define('DB_USER', getenv("DB_USER"));
+define('DB_PASS', getenv("DB_PASS"));
+define('DB_CHARSET', getenv("DB_CHARSET"));

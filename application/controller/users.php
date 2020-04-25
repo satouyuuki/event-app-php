@@ -1,6 +1,7 @@
 <?php
-
-require APP . 'model/User.php';
+namespace Application\controller;
+use Application\model\User;
+use Application\core\Controller;
 
 class users extends Controller {
 

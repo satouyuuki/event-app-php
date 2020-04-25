@@ -1,4 +1,5 @@
 <?php
+namespace Application\model;
 
 class Event {
     function __construct($db) {

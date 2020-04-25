@@ -1,4 +1,5 @@
 <?php
+namespace Application\model;
 
 class User {
     function __construct($db) {

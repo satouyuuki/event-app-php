@@ -1,5 +1,6 @@
 <?php
-
+namespace Application\core;
+use PDO;
 class Controller {
     public $db = null;
 
