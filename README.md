@@ -1,11 +1,12 @@
 ## イベント管理アップの概要
+* アプリURL: yuuki-aws-dev.work
 * スクリプト言語: PHP(version7.4)
     * バックエンドの基礎知識を深めたかった為素のphpを選びました。
 * sql: mysql(version8.0.19)
     * 5.*系は何度か練習で使ったことがあったが、8系を触ってみたいと感じた為
 
 ### インフラ周りの設定図
-![全体像](https://cacoo.com/diagrams/oZwqSGPx0iQc8O5X-E8970.png)
+![全体像](https://cacoo.com/diagrams/oZwqSGPx0iQc8O5X-E8970-w400-h300.png)
 
 ### 実装で難しかった部分・拘った部分
 * 最初はdockerでlocal環境を作っていたが、本番環境のAWSのECSにデプロイするところで躓いてしまった為急遽ec2とrdsの組み合わせを選択しました。
