@@ -30,12 +30,28 @@ class User {
     }
 
     public function deleteUser($id) {
-        $sql = "delete from users where id = :id";
+        $sql = "select DISTINCT u_id from records";
         $query = $this->db->prepare($sql);
-        $parameters = array(
-            ':id' => $id,
-        );
-        return $query->execute($parameters);
+        $query->execute();
+        $results = $query->fetchAll();
+        $flg = false;
+        foreach($results as $result) {
+            if($result->u_id === $id) {
+                $flg = true;
+                break;
+            }
+        }
+        if($flg == false) {
+            $sql = "delete from users where id = :id";
+            $query = $this->db->prepare($sql);
+            $parameters = array(
+                ':id' => $id,
+            );
+            $query->execute($parameters);
+        } else {
+            return $flg;
+        }
+
     }
 
     public function addUser($post) {

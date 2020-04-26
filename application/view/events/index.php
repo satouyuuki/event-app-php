@@ -1,4 +1,15 @@
 <h1 class="h1">イベント一覧</h1>
+<?php if(!empty($error)): ?>
+    <?php if(($error[0] === 'deleteFail')): ?>
+    <div class="alert alert-danger">
+        削除に失敗しました。
+    </div>
+    <?php elseif(($error[0] === 'deleteSuc')): ?>
+    <div class="alert alert-success">
+        削除が成功しました。
+    </div>
+    <?php endif; ?>
+<?php endif; ?>
 <div>
     <a href="/events/create">イベントを追加する</a>
 </div>

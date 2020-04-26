@@ -7,7 +7,7 @@ use Application\core\Controller;
 
 class events extends Controller {
 
-    public function index() {
+    public function index(...$error) {
         $eventModel = new Event($this->db);
         $events = $eventModel->getAllEvents();
         require APP . 'view/_templates/header.php';
@@ -57,9 +57,14 @@ class events extends Controller {
         $eventModel = new Event($this->db);
         $result = $eventModel->deleteEvent($id);
         if($result) {
-            header('location: ' . URL);
+            header('location: ' . URL . "events/index/deleteFail");
+            exit();
+        } else {
+            header('location: ' . URL . "events/index/deleteSuc");
+            exit();
         }
     }
+
     public function addUser(...$id) {
         $e_id = $id[0];
         if(isset($_POST) && !empty($_POST)) {

@@ -30,12 +30,27 @@ class Event {
     }
 
     public function deleteEvent($id) {
-        $sql = "delete from events where id = :id";
+        $sql = "select DISTINCT e_id from records";
         $query = $this->db->prepare($sql);
-        $parameters = array(
-            ':id' => $id,
-        );
-        return $query->execute($parameters);
+        $query->execute();
+        $results = $query->fetchAll();
+        $flg = false;
+        foreach($results as $result) {
+            if($result->e_id === $id) {
+                $flg = true;
+                break;
+            }
+        }
+        if($flg == false) {
+            $sql = "delete from events where id = :id";
+            $query = $this->db->prepare($sql);
+            $parameters = array(
+                ':id' => $id,
+            );
+            $query->execute($parameters);
+        } else {
+            return $flg;
+        }
     }
 
     public function addEvent($post) {

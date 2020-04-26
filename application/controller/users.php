@@ -5,7 +5,7 @@ use Application\core\Controller;
 
 class users extends Controller {
 
-    public function index() {
+    public function index(...$error) {
         $userModel = new User($this->db);
         $users = $userModel->getAllUsers();
         require APP . 'view/_templates/header.php';
@@ -54,7 +54,11 @@ class users extends Controller {
         $userModel = new User($this->db);
         $result = $userModel->deleteUser($id);
         if($result) {
-            header('location: ' . URL . "users/index");
+            header('location: ' . URL . "users/index/deleteFail");
+            exit();
+        } else {
+            header('location: ' . URL . "users/index/deleteSuc");
+            exit();
         }
     }
 }
