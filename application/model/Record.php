@@ -11,6 +11,30 @@ class Record {
         }
     }
 
+    public function addRecord($post, $e_id) {
+        $e_id = $e_id;
+        $u_id = $_POST['users'];
+        $name = $_POST['name'];
+        $text = $_POST['text'];
+        if($u_id == -1) {
+            $sql = "insert into users (name) values (:name)";
+            $parameters = array(
+                ':name' => $name,
+            );
+
+            $query = $this->db->prepare($sql);
+            $query->execute($parameters);
+            $u_id = (int)$this->db->lastInsertId();
+        } 
+        $sql = "insert into records (e_id, u_id, text) values (:e_id, :u_id, :text)";
+        $query = $this->db->prepare($sql);
+        $parameters = array(
+            ':e_id' => $e_id,
+            ':u_id' => $u_id,
+            ':text' => $text
+        );
+        $query->execute($parameters);
+    }
     public function getAllRecords() {
 
         $sql = "select u.id as u_id, e.id as e_id, u.name as u_name, e.name as e_name  from users as u inner join records as r on u.id = r.u_id inner join events as e on r.e_id = e.id";

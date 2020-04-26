@@ -1,5 +1,5 @@
 <?php
-print_r($user);
+// print_r($user);
 ?>
 <h1>イベント編集</h1>
 <form method="post">

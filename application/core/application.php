@@ -49,10 +49,11 @@ class Application {
             $this->url_action = isset($url[1]) ? $url[1] : "index";
             unset($url[0]);
             unset($url[1]);
-            $this->url_params = $url;
+            $this->url_params = $url ? array_values($url) : [];
         } else {
             $this->url_controller = "events";
             $this->url_action = "index";
+            $this->url_params = [];
         }
     }
     /**

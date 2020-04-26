@@ -23,7 +23,7 @@ class users extends Controller {
         require APP . 'view/_templates/footer.php';
     }
 
-    public function detail($id) {
+    public function detail(...$id) {
         $id = $id[0];
         $userModel = new User($this->db);
         $user = $userModel->getUser($id);
@@ -32,7 +32,7 @@ class users extends Controller {
         require APP . 'view/_templates/footer.php';
     }
 
-    public function edit($id) {
+    public function edit(...$id) {
         $id = $id[0];
         if(isset($_POST) && !empty($_POST)) {
             $userModel = new User($this->db);
@@ -49,7 +49,7 @@ class users extends Controller {
         require APP . 'view/_templates/footer.php';
     }
 
-    public function delete($id) {
+    public function delete(...$id) {
         $id = $id[0];
         $userModel = new User($this->db);
         $result = $userModel->deleteUser($id);

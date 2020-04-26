@@ -1,6 +1,3 @@
-<?php
-print_r($event);
-?>
 <h1>イベント編集</h1>
 <form method="post">
     <div class="form-group">

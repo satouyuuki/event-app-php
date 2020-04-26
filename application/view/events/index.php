@@ -1,12 +1,3 @@
-<?php
-// function print_r2($results) {
-//     foreach($results as $result) {
-//         echo '<br>';
-//         print_r($result);
-//         echo '<br>';
-//     }
-// }
-?>
 <h1 class="h1">イベント一覧</h1>
 <div>
     <a href="/events/create">イベントを追加する</a>

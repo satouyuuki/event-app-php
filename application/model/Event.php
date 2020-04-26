@@ -20,7 +20,6 @@ class Event {
     }
 
     public function getEvent($id) {
-
         $sql = "select * from events where id = :id";
         $query = $this->db->prepare($sql);
         $parameters = array(
