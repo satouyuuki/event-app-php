@@ -6,9 +6,9 @@ $dotenv->load();
 
 if(!isset($_SESSION['token']))
     $_SESSION['token']=md5(date('dmyis'));
-define('ENVIRONMENT', 'development');
+define('ENVIRONMENT', getenv("ENVIRONMENT"));
 
-if(ENVIRONMENT == 'development' || ENVIRONMENT == 'dev') {
+if(ENVIRONMENT == 'development') {
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 }
