@@ -60,8 +60,11 @@ class Application {
      * redirect to login if session not found
      */
     private function security() {
-        if(!isset($_SESSION['current_member_id']) and $this->url_controller != "login") {
-            header('location: ' . URL . '/login');
+        if(!isset($_SESSION['current_member_id'])) {
+            if($this->url_controller != "login" and $this->url_controller != "signin") {
+                header('location: ' . URL . '/login');
+                exit();
+            }
         }
     }
 }

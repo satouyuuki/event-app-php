@@ -19,12 +19,22 @@ class Member {
         );
         $query->execute($parameters);
         $member = $query->fetch();
-        if($member and $member->password = hash('sha256', $pwd)) {
+        if($member and password_verify($pwd, $member->password)) {
             return $member;
         }
         else {
             return null;
         }
+    }
+
+    public function signin($email, $pwd) {
+        $sql = "insert into members (email, password) values (:email, :password)";
+        $query = $this->db->prepare($sql);
+        $parameters = array(
+            ':email' => $email,
+            ':password' => password_hash($pwd, PASSWORD_DEFAULT)
+        );
+        $query->execute($parameters);
     }
 
 }
