@@ -14,13 +14,16 @@ class users extends Controller {
     }
     public function create() {
         if(isset($_POST) && !empty($_POST)) {
+            $m_id = $this->getCurrentMemberId();
             $userModel = new User($this->db);
-            $userModel->addUser($_POST);
+            $userModel->addUser($_POST, $m_id);
             header('location: ' . URL . "users/index");
+            exit();
         }
-        require APP . 'view/_templates/header.php';
-        require APP . 'view/users/create.php';
-        require APP . 'view/_templates/footer.php';
+        $this->view('view/users/create.php');
+        // require APP . 'view/_templates/header.php';
+        // require APP . 'view/users/create.php';
+        // require APP . 'view/_templates/footer.php';
     }
 
     public function detail(...$id) {

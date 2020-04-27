@@ -11,7 +11,7 @@ class Application {
      */
     public function __construct() {
         $this->splitUrl();
-        // $this->security();
+        $this->security();
         if(file_exists(APP . 'controller/' . $this->url_controller . '.php')) {
             // require APP . 'controller/' . $this->url_controller . '.php';
             $instans_url = 'Application\\controller\\' . $this->url_controller;
@@ -59,9 +59,9 @@ class Application {
     /**
      * redirect to login if session not found
      */
-    // private function security() {
-    //     if(!isset($_SESSION['current_user_id']) and $this->url_controller != "login") {
-    //         header('location: ' . URL . '?controller=login');
-    //     }
-    // }
+    private function security() {
+        if(!isset($_SESSION['current_member_id']) and $this->url_controller != "login") {
+            header('location: ' . URL . '/login');
+        }
+    }
 }

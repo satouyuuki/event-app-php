@@ -22,8 +22,8 @@ class Controller {
     /**
      * @return int
      */
-    public function getCurrentUserId() {
-        return $_SESSION['current_user_id'];
+    public function getCurrentMemberId() {
+        return $_SESSION['current_member_id'];
     }
     /**
      * @param $view

@@ -25,9 +25,6 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/events/index">Home <span class="sr-only">(current)</span></a>
-                </li>
                 <li class="nav-item">
                     <a 
                     class="nav-link 
@@ -69,6 +66,12 @@
                     >イベント履歴</a>
                 </li>
             </ul>
+            <span class="navbar-text">
+                <a href="/login/logout" class="nav-link">
+                    <?= $_SESSION['current_member_email'] ?>
+                    ログアウト
+                </a>
+            </span>
         </div>
     </nav>
     <div class="container">

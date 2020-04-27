@@ -17,13 +17,13 @@ class events extends Controller {
 
     public function create() {
         if(isset($_POST) && !empty($_POST)) {
+            $m_id = $this->getCurrentMemberId();
             $eventModel = new Event($this->db);
-            $eventModel->addEvent($_POST);
+            $eventModel->addEvent($_POST, $m_id);
             header('location: ' . URL);
+            exit();
         }
-        require APP . 'view/_templates/header.php';
-        require APP . 'view/events/create.php';
-        require APP . 'view/_templates/footer.php';
+        $this->view('view/events/create.php');
     }
 
     public function detail(...$id) {
@@ -58,18 +58,27 @@ class events extends Controller {
         $result = $eventModel->deleteEvent($id);
         if($result) {
             header('location: ' . URL . "events/index/deleteFail");
-            exit();
-        } else {
+        } 
+        else {
             header('location: ' . URL . "events/index/deleteSuc");
-            exit();
         }
+        exit();
     }
 
     public function addUser(...$id) {
         $e_id = $id[0];
         if(isset($_POST) && !empty($_POST)) {
+            $post = [];
+            $post = $_POST;
+            $u_id = $post['users'];
+            if($u_id == '-1') {
+                $m_id = $this->getCurrentMemberId();
+                $userModel = new User($this->db);
+                $userModel->addEventUser($post, $m_id);
+                $post['users'] = (int)$this->db->lastInsertId();
+            }
             $recordModel = new Record($this->db);
-            $recordModel->addRecord($_POST, $e_id);
+            $recordModel->addRecord($post, $e_id);
             header('location: ' . URL . 'records/index');
         }
         $userModel = new User($this->db);

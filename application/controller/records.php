@@ -68,11 +68,14 @@ class records extends Controller {
     }
     public function delete(...$id) {
         $recordModel = new Record($this->db);
-        $records = $recordModel->deleteRecord($id);
-        if($records) {
+        $recordModel->deleteRecord($id);
+
+        if($id[0] === "all") {
+            header('location: ' . URL . 'records/index/deleteAll');
+        } else {
             header('location: ' . URL . 'records/index/deleteSuc');
-            exit();
         }
+        exit();
     }
 
 }

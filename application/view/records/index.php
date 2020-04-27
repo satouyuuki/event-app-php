@@ -7,8 +7,15 @@
     <div class="alert alert-success">
         削除が成功しました。
     </div>
+    <?php elseif(($error[0] === 'deleteAll')): ?>
+    <div class="alert alert-success">
+        全て削除が成功しました。
+    </div>
     <?php endif; ?>
 <?php endif; ?>
+<div class="text-left">
+    <a class="btn btn-primary" onclick="return confirm('本当に全部削除しますか？');" href="/records/delete/all">一括削除</a>
+</div>
 <ul class="list-group">
     <?php foreach ($records as $record): ?>
         <li class="list-group-item d-flex justify-content-between align-items-center">

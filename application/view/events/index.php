@@ -1,3 +1,6 @@
+<?php
+var_dump($_SESSION);
+?>
 <h1 class="h1">イベント一覧</h1>
 <?php if(!empty($error)): ?>
     <?php if(($error[0] === 'deleteFail')): ?>

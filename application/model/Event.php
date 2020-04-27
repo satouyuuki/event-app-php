@@ -26,7 +26,7 @@ class Event {
             ':id' => $id,
         );
         $query->execute($parameters);
-        return $query->fetchAll();
+        return $query->fetch();
     }
 
     public function deleteEvent($id) {
@@ -53,19 +53,20 @@ class Event {
         }
     }
 
-    public function addEvent($post) {
+    public function addEvent($post, $m_id) {
         $name = $post['name'];
         $date = $post['date'];
         $text = $post['text'];
-        $sql = "insert into events (name, date, text) values (:name, :date, :text)";
+        $sql = "insert into events (name, date, text, m_id) values (:name, :date, :text, :m_id)";
         $query = $this->db->prepare($sql);
         $parameters = array(
             ':name' => $name,
             ':date' => $date,
             ':text' => $text,
+            ':m_id' => $m_id,
         );
         $query->execute($parameters);
-        return $query->fetchAll();
+        // return $query->fetchAll();
     }
 
     public function editEvent($post, $id) {

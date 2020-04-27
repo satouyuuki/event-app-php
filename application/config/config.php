@@ -1,13 +1,11 @@
 <?php
 namespace Application\config;
-// require '../../vendor/autoload.php';
 $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
 $dotenv->load();
 
 if(!isset($_SESSION['token']))
     $_SESSION['token']=md5(date('dmyis'));
 define('ENVIRONMENT', getenv("ENVIRONMENT"));
-
 if(ENVIRONMENT == 'development') {
     error_reporting(E_ALL);
     ini_set('display_errors', 1);

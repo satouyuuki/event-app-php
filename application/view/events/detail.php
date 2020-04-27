@@ -1,9 +1,9 @@
 <?php
 // var_dump($event);
 ?>
-<h1 class="h1"><?= $event[0]->name; ?></h1>
+<h1 class="h1"><?= $event->name; ?></h1>
 <div>
-    <span>日付: </span><?= $event[0]->date; ?>
+    <span>日付: </span><?= $event->date; ?>
 </div>
 <div>
     <textarea 
@@ -11,9 +11,9 @@
     rows="10"
     cols="40"
     readonly
-    ><?= $event[0]->text; ?></textarea>
+    ><?= $event->text; ?></textarea>
 </div>
 <div class="justify-content-between align-items-center">
-    <a class="btn btn-primary" href="/events/edit/<?= $event[0]->id; ?>">編集する</a>
-    <a class="btn btn-primary" href="/events/addUser/<?= $event[0]->id; ?>">ユーザーを追加する</a>
+    <a class="btn btn-primary" href="/events/edit/<?= $event->id; ?>">編集する</a>
+    <a class="btn btn-primary" href="/events/addUser/<?= $event->id; ?>">ユーザーを追加する</a>
 </div>

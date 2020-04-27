@@ -13,19 +13,19 @@ class Record {
 
     public function addRecord($post, $e_id) {
         $e_id = $e_id;
-        $u_id = $_POST['users'];
-        $name = $_POST['name'];
-        $text = $_POST['text'];
-        if($u_id == -1) {
-            $sql = "insert into users (name) values (:name)";
-            $parameters = array(
-                ':name' => $name,
-            );
+        $u_id = $post['users'];
+        $name = $post['name'];
+        $text = $post['text'];
+        // if($u_id == -1) {
+        //     $sql = "insert into users (name) values (:name)";
+        //     $parameters = array(
+        //         ':name' => $name,
+        //     );
 
-            $query = $this->db->prepare($sql);
-            $query->execute($parameters);
-            $u_id = (int)$this->db->lastInsertId();
-        } 
+        //     $query = $this->db->prepare($sql);
+        //     $query->execute($parameters);
+        //     $u_id = (int)$this->db->lastInsertId();
+        // } 
         $sql = "insert into records (e_id, u_id, text) values (:e_id, :u_id, :text)";
         $query = $this->db->prepare($sql);
         $parameters = array(
@@ -62,6 +62,14 @@ class Record {
         return $query->fetchAll();
     }
     public function deleteRecord($id) {
+        foreach($id as $value) {
+            if($value === "all") {
+                $sql = "delete from records";
+                $query = $this->db->prepare($sql);
+                $query->execute();
+                break;
+            }
+        }
         $e_id = $id[0];
         $u_id = $id[1];
         $sql = "delete from records where e_id = :e_id and u_id = :u_id";
@@ -70,7 +78,7 @@ class Record {
             ':e_id' => $e_id,
             ':u_id' => $u_id,
         );
-        return $query->execute($parameters);
+        $query->execute($parameters);
     }
     public function updateEventRecord($post, $e_id) {
         $u_id = $this->refreshKyes($post, 'u_id');
