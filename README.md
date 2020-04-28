@@ -20,6 +20,11 @@
 
 ### 今後実装加える部分
 * Unittest
-* login機能(mail送信を実装)
+* ~~login機能(mail送信を実装)~~ 4/28実装
+
+| mail | pass |
+|:-----------:|:------------:|
+| dummy@gmail.com       | dummy1234        | 
+
 * マークダウン機能
 * セキュリティー対策をする(CSRF, XSSなど)
