@@ -9,8 +9,13 @@ class Signin extends Controller {
             if($_SESSION['token'] === $_POST['token']) {
                 $member = new Member($this->db);
                 $member = $member->signin($_POST['email'], $_POST['password']);
-                header('location: ' . URL .'/login');
-                exit();
+                if($member) {
+                    header('location: ' . URL .'/login');
+                    exit();
+                }
+                else {
+                    $errors = "そのメールアドレスは使用済みです。";
+                }
             }
         }
         require APP . 'view/signin.php';

@@ -6,8 +6,9 @@ use Application\core\Controller;
 class users extends Controller {
 
     public function index(...$error) {
+        $m_id = $this->getCurrentMemberId();
         $userModel = new User($this->db);
-        $users = $userModel->getAllUsers();
+        $users = $userModel->getAllUsers($m_id);
         require APP . 'view/_templates/header.php';
         require APP . 'view/users/index.php';
         require APP . 'view/_templates/footer.php';
@@ -21,9 +22,6 @@ class users extends Controller {
             exit();
         }
         $this->view('view/users/create.php');
-        // require APP . 'view/_templates/header.php';
-        // require APP . 'view/users/create.php';
-        // require APP . 'view/_templates/footer.php';
     }
 
     public function detail(...$id) {

@@ -8,8 +8,9 @@ use Application\core\Controller;
 class events extends Controller {
 
     public function index(...$error) {
+        $m_id = $this->getCurrentMemberId();
         $eventModel = new Event($this->db);
-        $events = $eventModel->getAllEvents();
+        $events = $eventModel->getAllEvents($m_id);
         require APP . 'view/_templates/header.php';
         require APP . 'view/events/index.php';
         require APP . 'view/_templates/footer.php';
@@ -67,12 +68,12 @@ class events extends Controller {
 
     public function addUser(...$id) {
         $e_id = $id[0];
+        $m_id = $this->getCurrentMemberId();
         if(isset($_POST) && !empty($_POST)) {
             $post = [];
             $post = $_POST;
             $u_id = $post['users'];
             if($u_id == '-1') {
-                $m_id = $this->getCurrentMemberId();
                 $userModel = new User($this->db);
                 $userModel->addEventUser($post, $m_id);
                 $post['users'] = (int)$this->db->lastInsertId();
@@ -82,7 +83,7 @@ class events extends Controller {
             header('location: ' . URL . 'records/index');
         }
         $userModel = new User($this->db);
-        $users = $userModel->getAllUsers($id);
+        $users = $userModel->getAllUsers($m_id);
         require APP . 'view/_templates/header.php';
         require APP . 'view/events/addUser.php';
         require APP . 'view/_templates/footer.php';

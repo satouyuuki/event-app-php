@@ -1,5 +1,5 @@
 <?php
-var_dump($_SESSION);
+// var_dump($_SESSION);
 ?>
 <h1 class="h1">イベント一覧</h1>
 <?php if(!empty($error)): ?>

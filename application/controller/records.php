@@ -6,8 +6,9 @@ use Application\core\Controller;
 class records extends Controller {
 
     public function index(...$error) {
+        $m_id = $this->getCurrentMemberId();
         $recordModel = new Record($this->db);
-        $records = $recordModel->getAllRecords();
+        $records = $recordModel->getAllRecords($m_id);
         require APP . 'view/_templates/header.php';
         require APP . 'view/records/index.php';
         require APP . 'view/_templates/footer.php';

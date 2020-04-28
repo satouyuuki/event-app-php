@@ -16,16 +16,6 @@ class Record {
         $u_id = $post['users'];
         $name = $post['name'];
         $text = $post['text'];
-        // if($u_id == -1) {
-        //     $sql = "insert into users (name) values (:name)";
-        //     $parameters = array(
-        //         ':name' => $name,
-        //     );
-
-        //     $query = $this->db->prepare($sql);
-        //     $query->execute($parameters);
-        //     $u_id = (int)$this->db->lastInsertId();
-        // } 
         $sql = "insert into records (e_id, u_id, text) values (:e_id, :u_id, :text)";
         $query = $this->db->prepare($sql);
         $parameters = array(
@@ -35,11 +25,19 @@ class Record {
         );
         $query->execute($parameters);
     }
-    public function getAllRecords() {
-
-        $sql = "select u.id as u_id, e.id as e_id, u.name as u_name, e.name as e_name  from users as u inner join records as r on u.id = r.u_id inner join events as e on r.e_id = e.id";
+    public function getAllRecords($m_id) {
+        $sql = "
+        select u.id as u_id, e.id as e_id, u.name as u_name, e.name as e_name
+        from users as u 
+        inner join records as r on u.id = r.u_id 
+        and u.m_id = :m_id
+        inner join events as e on r.e_id = e.id 
+        and e.m_id = :m_id
+        ";
         $query = $this->db->prepare($sql);
-        $parameters = array();
+        $parameters = array(
+            ':m_id' => $m_id
+        );
         $query->execute($parameters);
         return $query->fetchAll();
     }

@@ -11,10 +11,12 @@ class User {
         }
     }
 
-    public function getAllUsers() {
-        $sql = "select * from users";
+    public function getAllUsers($m_id) {
+        $sql = "select * from users where m_id = :m_id";
         $query = $this->db->prepare($sql);
-        $parameters = array();
+        $parameters = array(
+            ':m_id' => $m_id
+        );
         $query->execute($parameters);
         return $query->fetchAll();
     }

@@ -17,7 +17,7 @@ class Login extends Controller {
                     exit();
                 }
                 else {
-                    $errors = "サインインしてください。";
+                    $errors = "ログインに失敗しました。";
                 }
             }
         }

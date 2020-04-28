@@ -11,10 +11,12 @@ class Event {
         }
     }
 
-    public function getAllEvents() {
-        $sql = "select * from events";
+    public function getAllEvents($m_id) {
+        $sql = "select * from events where m_id = :m_id";
         $query = $this->db->prepare($sql);
-        $parameters = array();
+        $parameters = array(
+            ':m_id' => $m_id
+        );
         $query->execute($parameters);
         return $query->fetchAll();
     }
