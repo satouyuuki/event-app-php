@@ -15,6 +15,7 @@ class records extends Controller {
     }
     public function eventRecord(...$id) {
         if(!empty($id)) {
+            // $mode = 'edit';
             $recordModel = new Record($this->db);
             $e_id = $id[0];
             if($_POST) {
@@ -22,15 +23,15 @@ class records extends Controller {
                 header('location: ' . URL . "/records/eventRecord/$e_id");
                 exit();
             }
-            $editFlg = false;
+            $mode = 'get';
             foreach($id as $value) {
                 if($value == 'edit') {
-                    $editFlg = true;
+                    $mode = $value;
                     break;
                 }
             }
             // 画面表示
-            $records = $recordModel->getEventRecord($e_id);
+            $records = $recordModel->getEventRecord($e_id, $mode);
             require APP . 'view/_templates/header.php';
             require APP . 'view/records/eventRecord.php';
             require APP . 'view/_templates/footer.php';
@@ -42,6 +43,7 @@ class records extends Controller {
     }
     public function userRecord(...$id) {
         if(!empty($id)) {
+            // $mode = 'edit';
             $recordModel = new Record($this->db);
             $u_id = $id[0];
             if($_POST) {
@@ -49,15 +51,15 @@ class records extends Controller {
                 header('location: ' . URL . "/records/userRecord/$u_id");
                 exit();
             }
-            $editFlg = false;
+            $mode = 'get';
             foreach($id as $value) {
                 if($value == 'edit') {
-                    $editFlg = true;
+                    $mode = $value;
                     break;
                 }
             }
             // 画面表示
-            $records = $recordModel->getUserRecord($u_id);
+            $records = $recordModel->getUserRecord($u_id, $mode);
             require APP . 'view/_templates/header.php';
             require APP . 'view/records/userRecord.php';
             require APP . 'view/_templates/footer.php';

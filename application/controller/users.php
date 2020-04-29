@@ -34,6 +34,7 @@ class users extends Controller {
     }
 
     public function edit(...$id) {
+        $mode = 'edit';
         $id = $id[0];
         if(isset($_POST) && !empty($_POST)) {
             $userModel = new User($this->db);
@@ -44,7 +45,7 @@ class users extends Controller {
             }
         }
         $userModel = new User($this->db);
-        $user = $userModel->getUser($id);
+        $user = $userModel->getUser($id, $mode);
         require APP . 'view/_templates/header.php';
         require APP . 'view/users/edit.php';
         require APP . 'view/_templates/footer.php';

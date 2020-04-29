@@ -1,9 +1,11 @@
 <?php
 namespace Application\model;
+use Application\core\Model;
 
-class User {
+class User extends Model{
     function __construct($db) {
         try {
+            parent::__construct();
             $this->db = $db;
         }
         catch(PDOExeption $e) {
@@ -12,23 +14,10 @@ class User {
     }
 
     public function getAllUsers($m_id) {
-        $sql = "select * from users where m_id = :m_id";
-        $query = $this->db->prepare($sql);
-        $parameters = array(
-            ':m_id' => $m_id
-        );
-        $query->execute($parameters);
-        return $query->fetchAll();
+        return parent::getAllItems('users', $m_id);
     }
-    public function getUser($id) {
-
-        $sql = "select * from users where id = :id";
-        $query = $this->db->prepare($sql);
-        $parameters = array(
-            ':id' => $id,
-        );
-        $query->execute($parameters);
-        return $query->fetch();
+    public function getUser($id, $mode = 'get') {
+        return parent::getItem('users', $id, $mode);
     }
 
     public function deleteUser($id) {

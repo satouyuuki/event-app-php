@@ -1,5 +1,5 @@
 <?php
-var_dump($event);
+// var_dump($event);
 ?>
 <h1>イベント編集</h1>
 <form method="post">

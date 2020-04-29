@@ -37,17 +37,18 @@ class events extends Controller {
     }
 
     public function edit(...$id) {
-        $id = $id[0];
+        $eventId = $id[0];
+        $mode = 'edit';
         if(isset($_POST) && !empty($_POST)) {
             $eventModel = new Event($this->db);
-            $result = $eventModel->editEvent($_POST, $id);
+            $result = $eventModel->editEvent($_POST, $eventId);
             if($result) {
-                header("location: " . URL . "events/detail/$id");
+                header("location: " . URL . "events/detail/$eventId");
                 exit();
             }
         }
         $eventModel = new Event($this->db);
-        $event = $eventModel->getEvent($id);
+        $event = $eventModel->getEvent($eventId, $mode);
         require APP . 'view/_templates/header.php';
         require APP . 'view/events/edit.php';
         require APP . 'view/_templates/footer.php';

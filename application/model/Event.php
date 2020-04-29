@@ -1,9 +1,11 @@
 <?php
 namespace Application\model;
+use Application\core\Model;
 
-class Event {
+class Event extends Model {
     function __construct($db) {
         try {
+            parent::__construct();
             $this->db = $db;
         }
         catch(PDOExeption $e) {
@@ -12,23 +14,11 @@ class Event {
     }
 
     public function getAllEvents($m_id) {
-        $sql = "select * from events where m_id = :m_id";
-        $query = $this->db->prepare($sql);
-        $parameters = array(
-            ':m_id' => $m_id
-        );
-        $query->execute($parameters);
-        return $query->fetchAll();
+        return parent::getAllItems('events', $m_id);
     }
 
-    public function getEvent($id) {
-        $sql = "select * from events where id = :id";
-        $query = $this->db->prepare($sql);
-        $parameters = array(
-            ':id' => $id,
-        );
-        $query->execute($parameters);
-        return $query->fetch();
+    public function getEvent($id, $mode = 'get') {
+        return parent::getItem('events', $id, $mode);
     }
 
     public function deleteEvent($id) {
