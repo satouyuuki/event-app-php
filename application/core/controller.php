@@ -1,7 +1,9 @@
 <?php
 namespace Application\core;
 use PDO;
-class Controller {
+use Application\utility\Utility;
+
+class Controller extends Utility {
     public $db = null;
 
     /**
@@ -29,11 +31,12 @@ class Controller {
      * @param $view
      * @param bool $template
      */
-    public function view($view, $template = true) {
+    public function view($view, $template = true, $data = []) {
+        // $utility = new Utility();
         if($template) {
             require APP . 'view/_templates/header.php';
         }
-        require APP . $view;
+        require APP . 'view/' . $view . '.php';
         if($template) {
             require APP . 'view/_templates/footer.php';
         }

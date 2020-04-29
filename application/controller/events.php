@@ -7,13 +7,22 @@ use Application\core\Controller;
 
 class events extends Controller {
 
-    public function index(...$error) {
+    public function index(...$params) {
+        $delResult = '';
+        if(!empty($params) && is_string($params[0])) {
+            $delResult = $params[0];
+        }
         $m_id = $this->getCurrentMemberId();
         $eventModel = new Event($this->db);
         $events = $eventModel->getAllEvents($m_id);
-        require APP . 'view/_templates/header.php';
-        require APP . 'view/events/index.php';
-        require APP . 'view/_templates/footer.php';
+        $this->view(
+            $view = 'events/index', 
+            $template = true, 
+            $data = compact(
+                'events',
+                'delResult'
+            )
+        );
     }
 
     public function create() {
