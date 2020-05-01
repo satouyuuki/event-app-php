@@ -77,6 +77,25 @@ class Model {
         $this->u_id = $u_id;
     }
 
+    public function checkName($table) {
+        $m_id = $this->getMemberId();
+        $name = $this->getName();
+        $sql = "select name from $table where m_id = :m_id";
+        $query = $this->db->prepare($sql);
+        $parameters = array(
+            ':m_id' => $m_id
+        );
+        $query->execute($parameters);
+        $nameArray = $query->fetchAll();
+        $flg = null;
+        foreach($nameArray as $key => $value) {
+            if($name === $value->name) {
+                $flg = '既に登録されています。';
+            }
+        }
+        return $flg;
+    }
+
     protected function getAllItems($table) {
         $m_id = $this->getMemberId();
         $sql = "select * from $table where m_id = :m_id";
@@ -89,7 +108,6 @@ class Model {
     }
 
     protected function getItem($table, $mode, $id) {
-        // $id = $this->getId();
         $sql = "select * from $table where id = :id";
         $query = $this->db->prepare($sql);
         $parameters = array(

@@ -2,6 +2,11 @@
 // var_dump($data);
 ?>
 <h1>ユーザ編集</h1>
+<?php if(!empty($data['errors']['top'])): ?>
+  <div class="alert alert-danger">
+    <?= $this->h($data['errors']['top']); ?>
+  </div>
+<?php endif; ?>
 <form name="form" method="post" id="form">
     <div class="form-group">
         <label for="name">ユーザ名</label>

@@ -12,7 +12,14 @@
     </select>
     <div class="form-group">
         <label for="name">ユーザ名</label>
-        <input class="form-control" type="text" name="name" placeholder="ユーザ名" id="name" value="">
+        <input class="form-control-plaintext
+        <?php if(!empty($data['errors']['name'])): ?>
+         is-invalid
+        <?php endif; ?>
+        " type="text" name="name" placeholder="ユーザ名" id="name" value="">
+        <div class="invalid-feedback">
+          <?= $data['errors']['name']; ?>
+        </div>
     </div>
     <div class="row">
         <div class="col-6">

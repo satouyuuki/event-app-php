@@ -32,12 +32,16 @@ class users extends Controller {
                 $userModel = new User($this->db);
                 $userModel->setMemberId($m_id);
                 $userModel->setName($_POST['name']);
-                $userModel->setText($_POST['text']);
-                $userModel->setDate($_POST['date']);
-                $userModel->setMemberId($m_id);
-                $userModel->addUser();
-                header('location: ' . URL. "users/index");
-                exit();
+                if($userModel->checkName('users')) {
+                    $errors['top'] = $userModel->checkName('users');
+                } else {
+                    $userModel->setText($_POST['text']);
+                    $userModel->setDate($_POST['date']);
+                    $userModel->setMemberId($m_id);
+                    $userModel->addUser();
+                    header('location: ' . URL. "users/index");
+                    exit();
+                }
             }
         }
         $this->view(
@@ -73,12 +77,17 @@ class users extends Controller {
             $errors = $this->validation->checkValudate($_POST);
             if(empty($errors)) {
                 $userModel->setName($_POST['name']);
-                $userModel->setText($_POST['text']);
-                $userModel->setDate($_POST['date']);
-                $result = $userModel->editUser();
-                if($result) {
-                    header("location: " . URL . "users/detail/$userId");
-                    exit();
+                $userModel->setMemberId($this->getCurrentMemberId());
+                if($userModel->checkName('users')) {
+                    $errors['top'] = $userModel->checkName('users');
+                } else {
+                    $userModel->setText($_POST['text']);
+                    $userModel->setDate($_POST['date']);
+                    $result = $userModel->editUser();
+                    if($result) {
+                        header("location: " . URL . "users/detail/$userId");
+                        exit();
+                    }
                 }
             }
         }

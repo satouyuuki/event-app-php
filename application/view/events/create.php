@@ -1,7 +1,12 @@
 <?php
-// var_dump($data['errors']['name']);
+// var_dump($data['errors']);
 ?>
 <h1>イベント追加</h1>
+<?php if(!empty($data['errors']['top'])): ?>
+  <div class="alert alert-danger">
+    <?= $this->h($data['errors']['top']); ?>
+  </div>
+<?php endif; ?>
 <form name="form" method="post" id="form">
     <div class="form-group">
         <label for="name">イベント名</label>

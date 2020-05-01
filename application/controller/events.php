@@ -35,12 +35,17 @@ class events extends Controller {
                 $eventModel = new Event($this->db);
                 $eventModel->setMemberId($m_id);
                 $eventModel->setName($_POST['name']);
-                $eventModel->setText($_POST['text']);
-                $eventModel->setDate($_POST['date']);
-                $eventModel->setMemberId($m_id);
-                $eventModel->addEvent();
-                header('location: ' . URL);
-                exit();
+                if($eventModel->checkName('events')) {
+                    $errors['top'] = $eventModel->checkName('events');
+                } 
+                else {
+                    $eventModel->setText($_POST['text']);
+                    $eventModel->setDate($_POST['date']);
+                    $eventModel->setMemberId($m_id);
+                    $eventModel->addEvent();
+                    header('location: ' . URL);
+                    exit();
+                }
             }
         }
         $this->view(
@@ -76,12 +81,17 @@ class events extends Controller {
             $errors = $this->validation->checkValudate($_POST);
             if(empty($errors)) {
                 $eventModel->setName($_POST['name']);
-                $eventModel->setText($_POST['text']);
-                $eventModel->setDate($_POST['date']);
-                $result = $eventModel->editEvent();
-                if($result) {
-                    header("location: " . URL . "events/detail/$eventId");
-                    exit();
+                $eventModel->setMemberId($this->getCurrentMemberId());
+                if($eventModel->checkName('events')) {
+                    $errors['top'] = $eventModel->checkName('events');
+                } else {
+                    $eventModel->setText($_POST['text']);
+                    $eventModel->setDate($_POST['date']);
+                    $result = $eventModel->editEvent();
+                    if($result) {
+                        header("location: " . URL . "events/detail/$eventId");
+                        exit();
+                    }
                 }
             }
         }
@@ -111,26 +121,30 @@ class events extends Controller {
     }
 
     public function addUser(...$id) {
+        $errors = [];
         $e_id = $id[0];
         $m_id = $this->getCurrentMemberId();
         if(isset($_POST) && !empty($_POST)) {
-            $post = [];
-            $post = $_POST;
-            $u_id = $post['users'];
-            if($u_id == '-1') {
-                $userModel = new User($this->db);
-                $userModel->setMemberId($m_id);
-                $userModel->setName($post['name']);
-                $userModel->addEventUser();
-                $u_id = (int)$this->db->lastInsertId();
+            $errors = $this->validation->checkValudate($_POST);
+            if(empty($errors)) {
+                $post = [];
+                $post = $_POST;
+                $u_id = $post['users'];
+                if($u_id == '-1') {
+                    $userModel = new User($this->db);
+                    $userModel->setMemberId($m_id);
+                    $userModel->setName($post['name']);
+                    $userModel->addEventUser();
+                    $u_id = (int)$this->db->lastInsertId();
+                }
+                $recordModel = new Record($this->db);
+                $recordModel->setUserId($u_id);
+                $recordModel->setEventId($e_id);
+                $recordModel->setText($post['text']);
+                $recordModel->addRecord();
+                header('location: ' . URL . 'records/index');
+                exit();
             }
-            $recordModel = new Record($this->db);
-            $recordModel->setUserId($u_id);
-            $recordModel->setEventId($e_id);
-            $recordModel->setText($post['text']);
-            $recordModel->addRecord();
-            header('location: ' . URL . 'records/index');
-            exit();
         }
         $userModel = new User($this->db);
         $userModel->setMemberId($m_id);
@@ -140,6 +154,7 @@ class events extends Controller {
             $template = true, 
             $data = compact(
                 'users',
+                'errors'
             )
         );
     }
