@@ -1,5 +1,5 @@
 <?php
-// var_dump($data);
+// var_dump($data['users']);
 ?>
 <h1 class="h1">追加するユーザーを選択</h1>
 <form name="form" method="post">

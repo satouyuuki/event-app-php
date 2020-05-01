@@ -42,5 +42,22 @@ class User extends Model{
         $query->execute($parameters);
     }
 
+    public function getAllUsersIsNotEvent() {
+        $m_id = $this->getMemberId();
+        $e_id = $this->getEventId();
+        $sql = "
+        select * from users 
+        where id not in 
+        (select u_id from records where e_id=:e_id) 
+        and m_id = :m_id";
+        $query = $this->db->prepare($sql);
+        $parameters = array(
+            ':e_id' => $e_id,
+            ':m_id' => $m_id,
+        );
+        $query->execute($parameters);
+        return $query->fetchAll();
+    }
+
 
 }

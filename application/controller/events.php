@@ -148,7 +148,8 @@ class events extends Controller {
         }
         $userModel = new User($this->db);
         $userModel->setMemberId($m_id);
-        $users = $userModel->getAllUsers();
+        $userModel->setEventId($e_id);
+        $users = $userModel->getAllUsersIsNotEvent();
         $this->view(
             $view = 'events/addUser',
             $template = true, 
