@@ -67,18 +67,22 @@ class events extends Controller {
     }
 
     public function edit(...$id) {
+        $errors = [];
         $eventId = $id[0];
         $mode = 'edit';
         $eventModel = new Event($this->db);
         $eventModel->setEventId($eventId);
         if(isset($_POST) && !empty($_POST)) {
-            $eventModel->setName($_POST['name']);
-            $eventModel->setText($_POST['text']);
-            $eventModel->setDate($_POST['date']);
-            $result = $eventModel->editEvent();
-            if($result) {
-                header("location: " . URL . "events/detail/$eventId");
-                exit();
+            $errors = $this->validation->checkValudate($_POST);
+            if(empty($errors)) {
+                $eventModel->setName($_POST['name']);
+                $eventModel->setText($_POST['text']);
+                $eventModel->setDate($_POST['date']);
+                $result = $eventModel->editEvent();
+                if($result) {
+                    header("location: " . URL . "events/detail/$eventId");
+                    exit();
+                }
             }
         }
         $event = $eventModel->getEvent($mode);
@@ -87,6 +91,7 @@ class events extends Controller {
             $template = true, 
             $data = compact(
                 'event',
+                'errors'
             )
         );
     }
@@ -94,7 +99,7 @@ class events extends Controller {
     public function delete(...$id) {
         $eventId = $id[0];
         $eventModel = new Event($this->db);
-        $eventModel->setId($eventId);
+        $eventModel->setEventId($eventId);
         $result = $eventModel->deleteEvent();
         if($result) {
             header('location: ' . URL . "events/index/deleteFail");

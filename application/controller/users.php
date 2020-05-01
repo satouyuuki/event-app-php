@@ -5,62 +5,105 @@ use Application\core\Controller;
 
 class users extends Controller {
 
-    public function index(...$error) {
+    public function index(...$params) {
+        $delResult = '';
+        if(!empty($params) && is_string($params[0])) {
+            $delResult = $params[0];
+        }
         $m_id = $this->getCurrentMemberId();
         $userModel = new User($this->db);
-        $users = $userModel->getAllUsers($m_id);
-        require APP . 'view/_templates/header.php';
-        require APP . 'view/users/index.php';
-        require APP . 'view/_templates/footer.php';
+        $userModel->setMemberId($m_id);
+        $users = $userModel->getAllUsers();
+        $this->view(
+            $view = 'users/index',
+            $template = true, 
+            $data = compact(
+                'users',
+                'delResult'
+            )
+        );
     }
     public function create() {
+        $errors = [];
         if(isset($_POST) && !empty($_POST)) {
-            $m_id = $this->getCurrentMemberId();
-            $userModel = new User($this->db);
-            $userModel->addUser($_POST, $m_id);
-            header('location: ' . URL . "users/index");
-            exit();
-        }
-        $this->view('view/users/create.php');
-    }
-
-    public function detail(...$id) {
-        $id = $id[0];
-        $userModel = new User($this->db);
-        $user = $userModel->getUser($id);
-        require APP . 'view/_templates/header.php';
-        require APP . 'view/users/detail.php';
-        require APP . 'view/_templates/footer.php';
-    }
-
-    public function edit(...$id) {
-        $mode = 'edit';
-        $id = $id[0];
-        if(isset($_POST) && !empty($_POST)) {
-            $userModel = new User($this->db);
-            $result = $userModel->editUser($_POST, $id);
-            if($result) {
-                header("location: " . URL . "users/detail/$id");
+            $errors = $this->validation->checkValudate($_POST);
+            if(empty($errors)) {
+                $m_id = $this->getCurrentMemberId();
+                $userModel = new User($this->db);
+                $userModel->setMemberId($m_id);
+                $userModel->setName($_POST['name']);
+                $userModel->setText($_POST['text']);
+                $userModel->setDate($_POST['date']);
+                $userModel->setMemberId($m_id);
+                $userModel->addUser();
+                header('location: ' . URL. "users/index");
                 exit();
             }
         }
+        $this->view(
+            $view = 'users/create', 
+            $template = true,
+            $data = compact(
+                'errors',
+            )
+        );
+    }
+
+    public function detail(...$id) {
+        $userId = $id[0];
         $userModel = new User($this->db);
-        $user = $userModel->getUser($id, $mode);
-        require APP . 'view/_templates/header.php';
-        require APP . 'view/users/edit.php';
-        require APP . 'view/_templates/footer.php';
+        $userModel->setuserId($userId);
+        $user = $userModel->getUser();
+        $this->view(
+            $view = 'users/detail',
+            $template = true, 
+            $data = compact(
+                'user',
+            ) 
+        );
+    }
+
+    public function edit(...$id) {
+        $errors = [];
+        $userId = $id[0];
+        $mode = 'edit';
+        $userModel = new User($this->db);
+        $userModel->setUserId($userId);
+        if(isset($_POST) && !empty($_POST)) {
+            $errors = $this->validation->checkValudate($_POST);
+            if(empty($errors)) {
+                $userModel->setName($_POST['name']);
+                $userModel->setText($_POST['text']);
+                $userModel->setDate($_POST['date']);
+                $result = $userModel->editUser();
+                if($result) {
+                    header("location: " . URL . "users/detail/$userId");
+                    exit();
+                }
+            }
+        }
+        $user = $userModel->getUser($mode);
+        $this->view(
+            $view = 'users/edit',
+            $template = true, 
+            $data = compact(
+                'user',
+                'errors',
+            )
+        );
     }
 
     public function delete(...$id) {
-        $id = $id[0];
+        $userId = $id[0];
         $userModel = new User($this->db);
-        $result = $userModel->deleteUser($id);
+        $userModel->setUserId($userId);
+        $result = $userModel->deleteUser();
         if($result) {
             header('location: ' . URL . "users/index/deleteFail");
-            exit();
-        } else {
+        } 
+        else {
             header('location: ' . URL . "users/index/deleteSuc");
-            exit();
         }
+        exit();
     }
 }

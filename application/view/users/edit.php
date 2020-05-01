@@ -1,23 +1,46 @@
 <?php
-// print_r($user);
+// var_dump($data);
 ?>
-<h1>ユーザの編集</h1>
-<form method="post">
+<h1>ユーザ編集</h1>
+<form name="form" method="post">
     <div class="form-group">
-        <label for="name">ユーザー名</label>
-        <input class="form-control" type="text" name="name" placeholder="ユーザー名" id="name" value="<?= $user->name; ?>">
+        <label for="name">ユーザ名</label>
+        <input class="form-control
+        <?php if(!empty($data['errors']['name'])): ?>
+         is-invalid
+        <?php endif; ?>
+        " type="text" name="name" placeholder="ユーザ名" id="name" value="<?= $this->h($data["user"]->name); ?>">
+        <div class="invalid-feedback">
+          <?= $data['errors']['name']; ?>
+        </div>
     </div>
-    <div class="form-group">
+    <div class="form-group" style="width: 170px;">
         <label for="date">日付</label>
-        <input class="form-control" type="text" name="date" id="date" value="<?= $user->date; ?>">
+        <input class="form-control
+        <?php if(!empty($data['errors']['date'])): ?>
+         is-invalid
+        <?php endif; ?>
+        " type="date" name="date" id="date" value="<?= $this->h($this->inputDateFormat($data["user"]->date)); ?>">
+        <div class="invalid-feedback">
+          <?= $data['errors']['date']; ?>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="text">感想</label>
-        <textarea class="form-control" name="text" id="text" cols="30" rows="10" placeholder="メモを記入してください"><?= $user->text; ?></textarea>
+    <div class="row">
+        <div class="col-6">
+            <label for="text">ユーザメモ</label>
+        </div>
+        <div class="col-6">
+            <p>プレビュー</p>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <textarea class="form-control" name="text" id="text" cols="30" rows="10" placeholder="メモを記入してください"><?= $this->h($data["user"]->text); ?></textarea>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="border w-100 h-100" id="preview">
+            </div>
+        </div>
     </div>
     <button class="btn btn-primary" type="submit">ユーザ編集</button>
 </form>
-
-
-
-
