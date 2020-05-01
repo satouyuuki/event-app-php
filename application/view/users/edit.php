@@ -2,7 +2,7 @@
 // var_dump($data);
 ?>
 <h1>ユーザ編集</h1>
-<form name="form" method="post">
+<form name="form" method="post" id="form">
     <div class="form-group">
         <label for="name">ユーザ名</label>
         <input class="form-control

@@ -27,7 +27,8 @@ class Record extends Model {
         );
         $query->execute($parameters);
     }
-    public function getAllRecords($m_id) {
+    public function getAllRecords() {
+        $m_id = $this->getMemberId();
         $sql = "
         select u.id as u_id, e.id as e_id, u.name as u_name, e.name as e_name
         from users as u 
@@ -43,16 +44,17 @@ class Record extends Model {
         $query->execute($parameters);
         return $query->fetchAll();
     }
-    public function getEventRecord($id, $mode = 'get') {
+    public function getEventRecord($mode = 'get') {
+        $e_id = $this->getEventId();
         $sql = "
         select DISTINCT r.text, e.id as e_id, u.id as u_id, u.name as u_name, e.name as e_name  
         from users as u 
         inner join records as r on u.id = r.u_id 
         inner join events as e on r.e_id = e.id 
-        where e_id = :id";
+        where e_id = :e_id";
         $query = $this->db->prepare($sql);
         $parameters = array(
-            ':id' => $id
+            ':e_id' => $e_id
         );
         $query->execute($parameters);
         $results = $query->fetchAll();
@@ -63,15 +65,16 @@ class Record extends Model {
         }
         return $results;
     }
-    public function getUserRecord($id, $mode = 'get') {
+    public function getUserRecord($mode = 'get') {
+        $u_id = $this->getUserId();
         $sql = "select DISTINCT r.text, u.id as u_id, e.id as e_id, u.name as u_name, e.name as e_name  
         from users as u 
         inner join records as r on u.id = r.u_id 
         inner join events as e on r.e_id = e.id 
-        where u_id = :id";
+        where u_id = :u_id";
         $query = $this->db->prepare($sql);
         $parameters = array(
-            ':id' => $id
+            ':u_id' => $u_id
         );
         $query->execute($parameters);
         $results = $query->fetchAll();
@@ -101,7 +104,8 @@ class Record extends Model {
         );
         $query->execute($parameters);
     }
-    public function updateEventRecord($post, $e_id) {
+    public function updateEventRecord($post) {
+        $e_id = $this->getEventId();
         $u_id = $this->refreshKyes($post, 'u_id');
         $text = $this->refreshKyes($post, 'text');
         for($i = 0; $i < count($text); $i++) {
@@ -120,7 +124,8 @@ class Record extends Model {
         }
     }
 
-    public function updateUserRecord($post, $u_id) {
+    public function updateUserRecord($post) {
+        $u_id = $this->getUserId();
         $e_id = $this->refreshKyes($post, 'e_id');
         $text = $this->refreshKyes($post, 'text');
         for($i = 0; $i < count($text); $i++) {

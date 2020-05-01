@@ -1,7 +1,7 @@
 <?php
 ?>
 <h1>イベント編集</h1>
-<form name="form" method="post">
+<form name="form" method="post" id="form">
     <div class="form-group">
         <label for="name">イベント名</label>
         <input class="form-control

@@ -3,7 +3,7 @@ namespace Application\core;
 use cebe\markdown\Markdown as Markdown;
 
 class Model {
-    private $parser;
+    protected $parser;
     private $name;
     private $text;
     private $date;
