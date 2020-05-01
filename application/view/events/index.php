@@ -1,6 +1,4 @@
 <?php
-// var_dump($data);
-// exit();
 ?>
 <h1 class="h1">イベント一覧</h1>
 <?php if(!empty($data['delResult'])): ?>
@@ -20,10 +18,10 @@
 <ul class="list-group">
     <?php foreach ($data["events"] as $event): ?>
         <li class="list-group-item d-flex justify-content-between align-items-center">
-            <a href="/events/detail/<?= $event->id; ?>">
+            <a href="/events/detail/<?= $this->h($event->id); ?>">
                 <?= $this->h($event->name); ?>
             </a>
-            <a class="btn btn-primary" onclick="return confirm('本当に削除しますか？');" href="/events/delete/<?= $event->id; ?>">削除</a>
+            <a class="btn btn-primary" onclick="return confirm('本当に削除しますか？');" href="/events/delete/<?= $this->h($event->id); ?>">削除</a>
         </li>
     <?php endforeach; ?>
 </ul>

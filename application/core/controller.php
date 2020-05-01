@@ -2,15 +2,18 @@
 namespace Application\core;
 use PDO;
 use Application\utility\Utility;
+use Application\validation\Validation;
 
 class Controller extends Utility {
     public $db = null;
+    public $validation = null;
 
     /**
      * Controller constructor
      */
     function __construct() {
         $this->openDatabaseConnection();
+        $this->validation = new Validation();
     }
     /**
      * Open connection database sql
@@ -32,7 +35,6 @@ class Controller extends Utility {
      * @param bool $template
      */
     public function view($view, $template = true, $data = []) {
-        // $utility = new Utility();
         if($template) {
             require APP . 'view/_templates/header.php';
         }

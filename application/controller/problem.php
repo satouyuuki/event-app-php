@@ -13,6 +13,8 @@ class Problem extends Controller
      */
     public function index()
     {
-        $this->view('view/problem/index.php');
+        $this->view(
+            $view = 'problem/index', 
+        );
     }
 }

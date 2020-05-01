@@ -3,78 +3,31 @@ namespace Application\model;
 use Application\core\Model;
 
 class Event extends Model {
-    function __construct($db) {
-        try {
-            parent::__construct();
-            $this->db = $db;
-        }
-        catch(PDOExeption $e) {
-            exit('データベースに接続できませんでした。');
-        }
+    function __construct($db = null) {
+        parent::__construct($db);
     }
 
-    public function getAllEvents($m_id) {
-        return parent::getAllItems('events', $m_id);
+    public function getAllEvents() {
+        return parent::getAllItems('events');
     }
 
-    public function getEvent($id, $mode = 'get') {
-        return parent::getItem('events', $id, $mode);
+    public function getEvent($mode = 'get') {
+        $id = $this->getEventId();
+        return parent::getItem('events', $mode, $id);
     }
 
-    public function deleteEvent($id) {
-        $sql = "select DISTINCT e_id from records";
-        $query = $this->db->prepare($sql);
-        $query->execute();
-        $results = $query->fetchAll();
-        $flg = false;
-        foreach($results as $result) {
-            if($result->e_id === $id) {
-                $flg = true;
-                break;
-            }
-        }
-        if($flg == false) {
-            $sql = "delete from events where id = :id";
-            $query = $this->db->prepare($sql);
-            $parameters = array(
-                ':id' => $id,
-            );
-            $query->execute($parameters);
-        } else {
-            return $flg;
-        }
+    public function addEvent() {
+        parent::addItem('events');
     }
 
-    public function addEvent($post, $m_id) {
-        $name = $post['name'];
-        $date = $post['date'];
-        $text = $post['text'];
-        $sql = "insert into events (name, date, text, m_id) values (:name, :date, :text, :m_id)";
-        $query = $this->db->prepare($sql);
-        $parameters = array(
-            ':name' => $name,
-            ':date' => $date,
-            ':text' => $text,
-            ':m_id' => $m_id,
-        );
-        $query->execute($parameters);
-        // return $query->fetchAll();
+    public function deleteEvent() {
+        $id = $this->getEventId();
+        parent::deleteItem('events', $id);
     }
 
-    public function editEvent($post, $id) {
-        $name = $post['name'];
-        $date = $post['date'];
-        $text = $post['text'];
-        $sql = "update events set name=:name, date=:date, text=:text where id=:id";
-
-        $query = $this->db->prepare($sql);
-        $parameters = array(
-            ':name' => $name,
-            ':date' => $date,
-            ':text' => $text,
-            ':id' => $id,
-        );
-        return $query->execute($parameters);
+    public function editEvent() {
+        $id = $this->getEventId();
+        return parent::editItem('events', $id);
     }
 
 }

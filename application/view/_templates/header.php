@@ -11,7 +11,7 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <nav class="navbar navbar-expand-md navbar-light bg-light mb-5">
         <button 
         class="navbar-toggler" 
         type="button" 
@@ -71,5 +71,5 @@
             </span>
         </div>
     </nav>
-    <div class="container">
+    <div class="container-fuild pl-4 pr-4">
 

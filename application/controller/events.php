@@ -14,9 +14,10 @@ class events extends Controller {
         }
         $m_id = $this->getCurrentMemberId();
         $eventModel = new Event($this->db);
-        $events = $eventModel->getAllEvents($m_id);
+        $eventModel->setMemberId($m_id);
+        $events = $eventModel->getAllEvents();
         $this->view(
-            $view = 'events/index', 
+            $view = 'events/index',
             $template = true, 
             $data = compact(
                 'events',
@@ -26,47 +27,78 @@ class events extends Controller {
     }
 
     public function create() {
+        $errors = [];
         if(isset($_POST) && !empty($_POST)) {
-            $m_id = $this->getCurrentMemberId();
-            $eventModel = new Event($this->db);
-            $eventModel->addEvent($_POST, $m_id);
-            header('location: ' . URL);
-            exit();
+            $errors = $this->validation->checkValudate($_POST);
+            // $errors['name'] = $this->validation->emptyVal($_POST['name']);
+            // $errors['name'] = $this->validation->emptyVal($_POST['name']);
+            if(empty($errors)) {
+                $m_id = $this->getCurrentMemberId();
+                $eventModel = new Event($this->db);
+                $eventModel->setMemberId($m_id);
+                $eventModel->setName($_POST['name']);
+                $eventModel->setText($_POST['text']);
+                $eventModel->setDate($_POST['date']);
+                $eventModel->setMemberId($m_id);
+                $eventModel->addEvent();
+                header('location: ' . URL);
+                exit();
+            }
         }
-        $this->view('view/events/create.php');
+        var_dump($errors);
+        $this->view(
+            $view = 'events/create', 
+            $template = true,
+            $data = compact(
+                'errors',
+            )
+        );
     }
 
     public function detail(...$id) {
-        $id = $id[0];
+        $eventId = $id[0];
         $eventModel = new Event($this->db);
-        $event = $eventModel->getEvent($id);
-        require APP . 'view/_templates/header.php';
-        require APP . 'view/events/detail.php';
-        require APP . 'view/_templates/footer.php';
+        $eventModel->setEventId($eventId);
+        $event = $eventModel->getEvent();
+        $this->view(
+            $view = 'events/detail',
+            $template = true, 
+            $data = compact(
+                'event',
+            ) 
+        );
     }
 
     public function edit(...$id) {
         $eventId = $id[0];
         $mode = 'edit';
+        $eventModel = new Event($this->db);
+        $eventModel->setEventId($eventId);
         if(isset($_POST) && !empty($_POST)) {
-            $eventModel = new Event($this->db);
-            $result = $eventModel->editEvent($_POST, $eventId);
+            $eventModel->setName($_POST['name']);
+            $eventModel->setText($_POST['text']);
+            $eventModel->setDate($_POST['date']);
+            $result = $eventModel->editEvent();
             if($result) {
                 header("location: " . URL . "events/detail/$eventId");
                 exit();
             }
         }
-        $eventModel = new Event($this->db);
-        $event = $eventModel->getEvent($eventId, $mode);
-        require APP . 'view/_templates/header.php';
-        require APP . 'view/events/edit.php';
-        require APP . 'view/_templates/footer.php';
+        $event = $eventModel->getEvent($mode);
+        $this->view(
+            $view = 'events/edit',
+            $template = true, 
+            $data = compact(
+                'event',
+            )
+        );
     }
 
     public function delete(...$id) {
-        $id = $id[0];
+        $eventId = $id[0];
         $eventModel = new Event($this->db);
-        $result = $eventModel->deleteEvent($id);
+        $eventModel->setId($eventId);
+        $result = $eventModel->deleteEvent();
         if($result) {
             header('location: ' . URL . "events/index/deleteFail");
         } 
