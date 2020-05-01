@@ -1,30 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- css -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>Document</title>
-</head>
-
-<body>
-
-    <nav class="navbar navbar-expand-md navbar-light bg-light mb-5">
-        <button 
-        class="navbar-toggler" 
-        type="button" 
-        data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" 
-        aria-label="Toggle navigation"
-        >
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+<nav class="navbar navbar-expand-md navbar-light bg-light mb-5">
+    <button 
+    class="navbar-toggler" 
+    type="button" 
+    data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" 
+    aria-label="Toggle navigation"
+    >
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <?php if($this->h(!isset($_SESSION['current_member_id']))): ?>
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a 
-                    class="nav-link 
+                    class="nav-link
+                    <?php 
+                        $url= $_SERVER['REQUEST_URI'];
+                        if(strstr($url, 'login') == true) {
+                            echo 'active';
+                        }
+                    ?>
+                    " 
+                    href="/login"
+                    >ログイン</a>
+                </li>
+                <li class="nav-item">
+                    <a 
+                    class="nav-link
+                    <?php 
+                        $url= $_SERVER['REQUEST_URI'];
+                        if(strstr($url, 'signin') == true) {
+                            echo 'active';
+                        }
+                    ?>
+                    " 
+                    href="/signin"
+                    >サインイン</a>
+                </li>
+            </ul>
+        <?php else: ?>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link 
                     <?php 
                         $url= $_SERVER['REQUEST_URI'];
                         if(strstr($url, 'events') == true) {
@@ -69,7 +86,7 @@
                     ログアウト
                 </a>
             </span>
-        </div>
-    </nav>
-    <div class="container-fuild pl-4 pr-4">
-
+        <?php endif; ?>
+    </div>
+</nav>
+<div class="container-fuild pl-4 pr-4">

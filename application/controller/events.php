@@ -30,8 +30,6 @@ class events extends Controller {
         $errors = [];
         if(isset($_POST) && !empty($_POST)) {
             $errors = $this->validation->checkValudate($_POST);
-            // $errors['name'] = $this->validation->emptyVal($_POST['name']);
-            // $errors['name'] = $this->validation->emptyVal($_POST['name']);
             if(empty($errors)) {
                 $m_id = $this->getCurrentMemberId();
                 $eventModel = new Event($this->db);
@@ -45,7 +43,6 @@ class events extends Controller {
                 exit();
             }
         }
-        var_dump($errors);
         $this->view(
             $view = 'events/create', 
             $template = true,

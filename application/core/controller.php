@@ -36,6 +36,7 @@ class Controller extends Utility {
      */
     public function view($view, $template = true, $data = []) {
         if($template) {
+            require APP . 'view/_templates/head.php';
             require APP . 'view/_templates/header.php';
         }
         require APP . 'view/' . $view . '.php';

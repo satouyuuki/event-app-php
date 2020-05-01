@@ -17,7 +17,6 @@ class Member {
         $parameters = array(
             ':email' => $email,
         );
-        echo "hello";
         $query->execute($parameters);
         return $query->fetch();
     }
