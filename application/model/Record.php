@@ -13,11 +13,10 @@ class Record extends Model {
         }
     }
 
-    public function addRecord($post, $e_id) {
-        $e_id = $e_id;
-        $u_id = $post['users'];
-        $name = $post['name'];
-        $text = $post['text'];
+    public function addRecord() {
+        $e_id = $this->getEventId();
+        $u_id = $this->getUserId();
+        $text = $this->getText();
         $sql = "insert into records (e_id, u_id, text) values (:e_id, :u_id, :text)";
         $query = $this->db->prepare($sql);
         $parameters = array(
@@ -27,6 +26,7 @@ class Record extends Model {
         );
         $query->execute($parameters);
     }
+    
     public function getAllRecords() {
         $m_id = $this->getMemberId();
         $sql = "

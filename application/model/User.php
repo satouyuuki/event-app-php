@@ -30,4 +30,17 @@ class User extends Model{
         return parent::editItem('users', $id);
     }
 
+    public function addEventUser() {
+        $name = $this->getName();
+        $m_id = $this->getMemberId();
+        $sql = "insert into users (name, m_id) values (:name, :m_id)";
+        $query = $this->db->prepare($sql);
+        $parameters = array(
+            ':name' => $name,
+            ':m_id' => $m_id,
+        );
+        $query->execute($parameters);
+    }
+
+
 }

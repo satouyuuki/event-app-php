@@ -23,8 +23,8 @@
 
     function textArrayPreview(preview, num) {
         for (let i = 0; i < num; i++) {
-            const text = 'text' + i;
-            preview[i].innerHTML = marked(record.text.value);
+            let textArea = 'text' + i;
+            preview[i].innerHTML = marked(eval(`record.${textArea}.value`));
         }
     }
 

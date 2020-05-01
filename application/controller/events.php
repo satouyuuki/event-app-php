@@ -119,17 +119,28 @@ class events extends Controller {
             $u_id = $post['users'];
             if($u_id == '-1') {
                 $userModel = new User($this->db);
-                $userModel->addEventUser($post, $m_id);
-                $post['users'] = (int)$this->db->lastInsertId();
+                $userModel->setMemberId($m_id);
+                $userModel->setName($post['name']);
+                $userModel->addEventUser();
+                $u_id = (int)$this->db->lastInsertId();
             }
             $recordModel = new Record($this->db);
-            $recordModel->addRecord($post, $e_id);
+            $recordModel->setUserId($u_id);
+            $recordModel->setEventId($e_id);
+            $recordModel->setText($post['text']);
+            $recordModel->addRecord();
             header('location: ' . URL . 'records/index');
+            exit();
         }
         $userModel = new User($this->db);
-        $users = $userModel->getAllUsers($m_id);
-        require APP . 'view/_templates/header.php';
-        require APP . 'view/events/addUser.php';
-        require APP . 'view/_templates/footer.php';
+        $userModel->setMemberId($m_id);
+        $users = $userModel->getAllUsers();
+        $this->view(
+            $view = 'events/addUser',
+            $template = true, 
+            $data = compact(
+                'users',
+            )
+        );
     }
 }

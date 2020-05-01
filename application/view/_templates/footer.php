@@ -6,7 +6,11 @@
     <script src="../../../js/main.js" type="text/javascript"></script>
     <?php
     $url = $this->h($_SERVER['REQUEST_URI']);
-    if (strpos($url, 'edit') !== false or strpos($url, 'create') !== false) : 
+    if (
+        strpos($url, 'edit') !== false or 
+        strpos($url, 'create') !== false or
+        strpos($url, 'addUser') !== false
+    ) : 
     ?>
     <script src="../../../js/preview.js" type="text/javascript"></script>
     <?php endif; ?>

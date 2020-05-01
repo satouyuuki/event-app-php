@@ -11,7 +11,7 @@ class Model {
     // private $id;
     private $e_id;
     private $u_id;
-    private $db;
+    protected $db;
 
     /**
      * Model constructor

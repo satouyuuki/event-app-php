@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-6">
                     <div class="form-group">
-                        <textarea class="form-control" name="text<?= $i; ?>" id="text" cols="30" rows="10" placeholder="メモを記入してください"><?= $this->h($data["records"][$i]->text); ?></textarea>
+                        <textarea class="form-control" name="text<?= $i; ?>" cols="30" rows="10" placeholder="メモを記入してください"><?= $this->h($data["records"][$i]->text); ?></textarea>
                     </div>
                 </div>
                 <div class="col-6">
