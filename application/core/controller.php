@@ -44,4 +44,16 @@ class Controller extends Utility {
             require APP . 'view/_templates/footer.php';
         }
     }
+
+    /**
+     * @param array $post
+     * @param string $preg
+     */
+    public function refreshKyes(array $post, string $preg) {
+        $flipped_array = array_flip($post);
+        $flipped_post = preg_grep("!{$preg}[0-9+]!",$flipped_array);
+        $result = array_flip($flipped_post);
+        return $result = array_values($result);
+    }
+
 }

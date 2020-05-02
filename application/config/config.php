@@ -10,6 +10,7 @@ if(ENVIRONMENT == 'development') {
     error_reporting(E_ALL);
     ini_set('display_errors', 1);
 }
+define('URI', $_SERVER['REQUEST_URI']);
 define('URL_PUBLIC_FOLDER', 'public');
 define('URL_PROTOCOL', '//');
 define('URL_DOMAIN', $_SERVER['HTTP_HOST']);

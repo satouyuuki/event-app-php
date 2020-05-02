@@ -7,6 +7,55 @@ use Application\core\Controller;
 
 class events extends Controller {
 
+    public function compass() {
+        $events = [];
+        $message = [];
+        if(isset($_POST) && !empty($_POST)) {
+            if(isset($_POST['searchBtn']) and !empty($_POST['searchBtn'])) {
+                $keyword = urlencode($_POST['keyword']);
+                $maxCount = urlencode($_POST['maxCount']);
+                if(!empty($keyword) and !empty($maxCount)) {
+                    $url="https://connpass.com/api/v1/event/?keyword=$keyword&count=$maxCount";
+                    $context = stream_context_create(array('http' => array(
+                        'method' => 'GET',
+                        'header' => "User-Agent:" . $_SERVER['HTTP_USER_AGENT'],
+                    )));
+                    $json=file_get_contents($url, false, $context);
+                    $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
+                    $arr = json_decode($json,true);
+                    for($i=0; $i < count($arr['events']); $i++) {
+                        $events[$i]['name'] = $arr['events'][$i]['title'];
+                        $events[$i]['date'] = $arr['events'][$i]['started_at'];
+                    }
+                }
+            }
+            if(isset($_POST['addBtn']) and !empty($_POST['addBtn'])) {
+                $name = $this->refreshKyes($_POST, 'name');
+                $date = $this->refreshKyes($_POST, 'date');
+                for($i=0; $i < count($name); $i++) {
+                    $eventModel = new Event($this->db);
+                    $eventModel->setMemberId($this->getCurrentMemberId());
+                    $eventModel->setName($name[$i]);
+                    $eventModel->setDate($date[$i]);
+                    $result = $eventModel->addEventAPI();
+                    if($result) {
+                        $message['success'] = '登録が成功しました。';
+                    }else {
+                        $message['error'] = '登録が失敗しました。';
+                    }
+                }
+            }
+        }
+        $this->view(
+            $view = 'events/compass',
+            $template = true, 
+            $data = compact(
+                'events',
+                'message'
+            )
+        );
+    }
+
     public function index(...$params) {
         $delResult = '';
         if(!empty($params) && is_string($params[0])) {

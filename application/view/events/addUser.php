@@ -4,15 +4,14 @@
 <h1 class="h1">追加するユーザーを選択</h1>
 <form name="form" method="post">
     <select name="users" id="users" onChange="getSelectLabel('users');">
-        <option value="0" selected>▼ユーザを選択</option>
+        <option value="-1">新しいユーザ</option>
         <?php foreach ($data['users'] as $user): ?>
             <option value="<?= $this->h($user->id); ?>"><?= $this->h($user->name); ?></option>
         <?php endforeach; ?>
-        <option value="-1">新しいユーザ</option>
     </select>
     <div class="form-group">
         <label for="name">ユーザ名</label>
-        <input class="form-control-plaintext
+        <input class="form-control
         <?php if(!empty($data['errors']['name'])): ?>
          is-invalid
         <?php endif; ?>

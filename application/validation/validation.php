@@ -45,7 +45,7 @@ class Validation {
     }
 
     private function overMaxLength($val) {
-        if(strlen($val) >= 30) {
+        if(strlen($val) > 110) {
             return '文字数がオーバーしてます';
         }
     }

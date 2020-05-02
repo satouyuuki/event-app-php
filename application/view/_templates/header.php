@@ -1,4 +1,3 @@
-
 <nav class="navbar navbar-expand-md navbar-light bg-light mb-5">
     <button 
     class="navbar-toggler" 
@@ -13,27 +12,13 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a 
-                    class="nav-link
-                    <?php 
-                        $url= $_SERVER['REQUEST_URI'];
-                        if(strstr($url, 'login') == true) {
-                            echo 'active';
-                        }
-                    ?>
-                    " 
+                    class="nav-link<?= strstr(URI, 'login') ? ' active' : ''; ?>" 
                     href="/login"
                     >ログイン</a>
                 </li>
                 <li class="nav-item">
                     <a 
-                    class="nav-link
-                    <?php 
-                        $url= $_SERVER['REQUEST_URI'];
-                        if(strstr($url, 'signin') == true) {
-                            echo 'active';
-                        }
-                    ?>
-                    " 
+                    class="nav-link<?= strstr(URI, 'signin') ? ' active' : ''; ?>" 
                     href="/signin"
                     >サインイン</a>
                 </li>
@@ -41,43 +26,29 @@
         <?php else: ?>
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link 
-                    <?php 
-                        $url= $_SERVER['REQUEST_URI'];
-                        if(strstr($url, 'events') == true) {
-                            echo 'active';
-                        }
-                    ?>
-                    " 
+                    <a
+                    class="nav-link<?= strstr(URI, 'events') ? ' active' : ''; ?>" 
                     href="/events/index"
                     >
                     イベント一覧</a>
                 </li>
                 <li class="nav-item">
                     <a 
-                    class="nav-link
-                    <?php 
-                        $url= $_SERVER['REQUEST_URI'];
-                        if(strstr($url, 'users') == true) {
-                            echo 'active';
-                        }
-                    ?>
-                    " 
+                    class="nav-link<?= strstr(URI, 'users') ? ' active' : ''; ?>" 
                     href="/users/index"
                     >ユーザ一覧</a>
                 </li>
                 <li class="nav-item">
                     <a 
-                    class="nav-link
-                    <?php 
-                        $url= $_SERVER['REQUEST_URI'];
-                        if(strstr($url, 'records') == true) {
-                            echo 'active';
-                        }
-                    ?>
-                    " 
+                    class="nav-link<?= strstr(URI, 'records') ? ' active' : ''; ?>" 
                     href="/records/index"
                     >イベント履歴</a>
+                </li>
+                <li class="nav-item">
+                    <a 
+                    class="nav-link<?= strstr(URI, 'compass') ? ' active' : ''; ?>" 
+                    href="/events/compass"
+                    >コンパス検索</a>
                 </li>
             </ul>
             <span class="navbar-text">
