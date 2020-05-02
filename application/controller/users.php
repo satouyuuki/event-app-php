@@ -78,16 +78,12 @@ class users extends Controller {
             if(empty($errors)) {
                 $userModel->setName($_POST['name']);
                 $userModel->setMemberId($this->getCurrentMemberId());
-                if($userModel->checkName('users')) {
-                    $errors['top'] = $userModel->checkName('users');
-                } else {
-                    $userModel->setText($_POST['text']);
-                    $userModel->setDate($_POST['date']);
-                    $result = $userModel->editUser();
-                    if($result) {
-                        header("location: " . URL . "users/detail/$userId");
-                        exit();
-                    }
+                $userModel->setText($_POST['text']);
+                $userModel->setDate($_POST['date']);
+                $result = $userModel->editUser();
+                if($result) {
+                    header("location: " . URL . "users/detail/$userId");
+                    exit();
                 }
             }
         }

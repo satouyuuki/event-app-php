@@ -15,6 +15,9 @@ class Validation {
             if($this->emptyVal($post['name']) !== null) {
                 $this->errors['name'] = $this->emptyVal($post['name']);
             }
+            elseif($this->overMaxLength($post['name']) !== null) {
+                $this->errors['name'] = $this->overMaxLength($post['name']);
+            }
         }
         if(array_key_exists('date', $post)) {
             if($this->emptyVal($post['date']) !== null) {
@@ -34,12 +37,16 @@ class Validation {
         return $this->errors;
     }
 
-    /**
-     * @param array
-     */
+    
     private function emptyVal($val) {
         if(empty($val)) {
             return '空白です';
+        }
+    }
+
+    private function overMaxLength($val) {
+        if(strlen($val) >= 30) {
+            return '文字数がオーバーしてます';
         }
     }
 }

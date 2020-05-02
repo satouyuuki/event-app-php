@@ -14,7 +14,7 @@
         <?php if(!empty($data['errors']['name'])): ?>
          is-invalid
         <?php endif; ?>
-        " type="text" name="name" placeholder="ユーザ名" id="name">
+        " type="text" name="name" placeholder="ユーザ名" id="name" value="<?= isset($_POST['name']) ? $this->h($_POST['name']) : ''; ?>">
         <div class="invalid-feedback">
           <?= $data['errors']['name']; ?>
         </div>

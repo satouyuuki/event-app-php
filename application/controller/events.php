@@ -82,16 +82,12 @@ class events extends Controller {
             if(empty($errors)) {
                 $eventModel->setName($_POST['name']);
                 $eventModel->setMemberId($this->getCurrentMemberId());
-                if($eventModel->checkName('events')) {
-                    $errors['top'] = $eventModel->checkName('events');
-                } else {
-                    $eventModel->setText($_POST['text']);
-                    $eventModel->setDate($_POST['date']);
-                    $result = $eventModel->editEvent();
-                    if($result) {
-                        header("location: " . URL . "events/detail/$eventId");
-                        exit();
-                    }
+                $eventModel->setText($_POST['text']);
+                $eventModel->setDate($_POST['date']);
+                $result = $eventModel->editEvent();
+                if($result) {
+                    header("location: " . URL . "events/detail/$eventId");
+                    exit();
                 }
             }
         }

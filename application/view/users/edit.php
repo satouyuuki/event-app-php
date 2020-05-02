@@ -14,7 +14,7 @@
         <?php if(!empty($data['errors']['name'])): ?>
          is-invalid
         <?php endif; ?>
-        " type="text" name="name" placeholder="ユーザ名" id="name" value="<?= $this->h($data["user"]->name); ?>">
+        " type="text" name="name" placeholder="ユーザ名" id="name" value="<?= isset($_POST['name']) ? $this->h($_POST['name']) : $this->h($data["user"]->name); ?>">
         <div class="invalid-feedback">
           <?= $data['errors']['name']; ?>
         </div>
@@ -25,7 +25,7 @@
         <?php if(!empty($data['errors']['date'])): ?>
          is-invalid
         <?php endif; ?>
-        " type="date" name="date" id="date" value="<?= $this->h($this->inputDateFormat($data["user"]->date)); ?>">
+        " type="date" name="date" id="date" value="<?= isset($_POST['data']) ? $this->h($this->inputDateFormat($_POST['data'])) : $this->h($this->inputDateFormat($data["user"]->date)); ?>">
         <div class="invalid-feedback">
           <?= $data['errors']['date']; ?>
         </div>
@@ -39,7 +39,7 @@
         </div>
         <div class="col-6">
             <div class="form-group">
-                <textarea class="form-control" name="text" id="text" cols="30" rows="10" placeholder="メモを記入してください"><?= $this->h($data["user"]->text); ?></textarea>
+                <textarea class="form-control" name="text" id="text" cols="30" rows="10" placeholder="メモを記入してください"><?= isset($_POST['text']) ? $this->h($_POST['text']) : $this->h($data["user"]->text); ?></textarea>
             </div>
         </div>
         <div class="col-6">
