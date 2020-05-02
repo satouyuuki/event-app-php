@@ -1,7 +1,3 @@
-<?php
-// var_dump($this->h($data['event']->text));
-// exit();
-?>
 <h1 class="h1"><?= $this->h($data['event']->name); ?></h1>
 <div>
     <span>日付: </span><?= $this->h($data['event']->date); ?>

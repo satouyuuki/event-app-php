@@ -1,6 +1,3 @@
-<?php
-// var_dump($data['errors']['name']);
-?>
 <h1>ユーザ追加</h1>
 <?php if(!empty($data['errors']['top'])): ?>
   <div class="alert alert-danger">

@@ -1,7 +1,3 @@
-<?php
-// var_dump($data);
-// exit();
-?>
 <h1 class="h1"><?= $data['records'][0]->e_name; ?>のユーザ一覧</h1>
 <form name="record" method="post" id="form">
     <?php for($i = 0; $i < count($data['records']); $i++): ?>

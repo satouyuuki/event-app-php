@@ -1,6 +1,3 @@
-<?php
-// var_dump($records);
-?>
 <h1 class="h1">イベント履歴</h1>
 <?php if(!empty($data['delResult'])): ?>
     <?php if($data['delResult'] === 'deleteFail'): ?>

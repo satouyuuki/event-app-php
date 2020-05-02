@@ -1,6 +1,3 @@
-<?php
-// var_dump($data);
-?>
 <h1 class="h1">コンパスイベント検索</h1>
 <?php if(!empty($data['message'])): ?>
     <?php if(!empty($data['message']['success'])): ?>

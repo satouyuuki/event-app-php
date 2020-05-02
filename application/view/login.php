@@ -1,7 +1,3 @@
-<?php
-// var_dump($data);
-// exit();
-?>
 <h1 class="h1">ログインページ</h1>
 <?php if (isset($data['errors']['login'])) :?>
     <div class="alert alert-danger">

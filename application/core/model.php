@@ -8,7 +8,6 @@ class Model {
     private $text;
     private $date;
     private $m_id;
-    // private $id;
     private $e_id;
     private $u_id;
     protected $db;
@@ -138,7 +137,6 @@ class Model {
     }
 
     protected function deleteItem($table, $id) {
-        // $id = $this->getId();
         $sql = "select DISTINCT e_id from records";
         $query = $this->db->prepare($sql);
         $query->execute();
@@ -166,7 +164,6 @@ class Model {
         $name = $this->getName();
         $date = $this->getDate();
         $text = $this->getText();
-        // $id = $this->getId();
         $sql = "update $table set name=:name, date=:date, text=:text where id=:id";
 
         $query = $this->db->prepare($sql);

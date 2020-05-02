@@ -5,9 +5,6 @@ class Validation {
     /**
      * Controller constructor
      */
-    // function __construct($post = []) {
-    //     $this->checkValudate($post);
-    // }
     private $errors = [];
 
     public function checkValudate($post) {

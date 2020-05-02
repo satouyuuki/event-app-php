@@ -22,7 +22,6 @@ class Signin extends Controller {
                 }
             }
         }
-        // require APP . 'view/signin.php';
         $this->view(
             $view = 'signin',
             $template = true,
