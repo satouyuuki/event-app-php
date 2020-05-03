@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-light mb-5">
+<nav class="sticky-top navbar navbar-expand-md navbar-light bg-light mb-5">
     <button 
     class="navbar-toggler" 
     type="button" 

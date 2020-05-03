@@ -1,10 +1,10 @@
-<h1 class="h1">ログインページ</h1>
-<?php if (isset($data['errors']['login'])) :?>
-    <div class="alert alert-danger">
-        <?= $data['errors']['login']; ?>
-    </div>
-<?php endif; unset($data['errors']['login']); ?>
-<form method="post">
+<form method="post" class="form-layout">
+    <h1 class="h1">ログインページ</h1>
+    <?php if (isset($data['errors']['login'])) :?>
+        <div class="alert alert-danger">
+            <?= $data['errors']['login']; ?>
+        </div>
+    <?php endif; unset($data['errors']['login']); ?>
     <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
     <div class="form-group">
         <label for="email">E-mail</label>
