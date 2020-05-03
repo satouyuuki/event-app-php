@@ -137,27 +137,12 @@ class Model {
     }
 
     protected function deleteItem($table, $id) {
-        $sql = "select DISTINCT e_id from records";
+        $sql = "delete from $table where id = :id";
         $query = $this->db->prepare($sql);
-        $query->execute();
-        $results = $query->fetchAll();
-        $flg = false;
-        foreach($results as $result) {
-            if($result->e_id === $id) {
-                $flg = true;
-                break;
-            }
-        }
-        if($flg == false) {
-            $sql = "delete from $table where id = :id";
-            $query = $this->db->prepare($sql);
-            $parameters = array(
-                ':id' => $id,
-            );
-            $query->execute($parameters);
-        } else {
-            return $flg;
-        }
+        $parameters = array(
+            ':id' => $id,
+        );
+        $query->execute($parameters);
     }
 
     protected function editItem($table, $id) {

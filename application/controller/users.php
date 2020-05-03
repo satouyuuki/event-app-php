@@ -102,13 +102,15 @@ class users extends Controller {
         $userId = $id[0];
         $userModel = new User($this->db);
         $userModel->setUserId($userId);
-        $result = $userModel->deleteUser();
-        if($result) {
+        $result = $userModel->checkUserId();
+        if(!empty($result)) {
             header('location: ' . URL . "users/index/deleteFail");
-        } 
-        else {
-            header('location: ' . URL . "users/index/deleteSuc");
+            exit();
         }
-        exit();
+        else {
+            $userModel->deleteUser();
+            header('location: ' . URL . "users/index/deleteSuc");
+            exit();
+        }
     }
 }

@@ -44,7 +44,18 @@ class Event extends Model {
 
     public function editEvent() {
         $id = $this->getEventId();
-        return parent::editItem('events', $id);
+        parent::editItem('events', $id);
+    }
+
+    public function checkEventId() {
+        $e_id = $this->getEventId();
+        $sql = "select e_id from records where e_id = :e_id";
+        $query = $this->db->prepare($sql);
+        $parameters = array(
+            ':e_id' => $e_id
+        );
+        $query->execute($parameters);
+        return $query->fetchAll();
     }
 
 }

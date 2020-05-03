@@ -85,17 +85,9 @@ class Record extends Model {
         }
         return $results;
     }
-    public function deleteRecord($id) {
-        foreach($id as $value) {
-            if($value === "all") {
-                $sql = "delete from records";
-                $query = $this->db->prepare($sql);
-                $query->execute();
-                break;
-            }
-        }
-        $e_id = $id[0];
-        $u_id = $id[1];
+    public function deleteRecord() {
+        $e_id = $this->getEventId();
+        $u_id = $this->getUserId();
         $sql = "delete from records where e_id = :e_id and u_id = :u_id";
         $query = $this->db->prepare($sql);
         $parameters = array(
@@ -104,49 +96,22 @@ class Record extends Model {
         );
         $query->execute($parameters);
     }
-    public function updateEventRecord($post) {
+    public function updateRecord() {
         $e_id = $this->getEventId();
-        $u_id = $this->refreshKyes($post, 'u_id');
-        $text = $this->refreshKyes($post, 'text');
-        for($i = 0; $i < count($text); $i++) {
-            $sql = "
-            update records set 
-            text = :text
-            where e_id = :e_id and u_id = :u_id
-            ";
-            $query = $this->db->prepare($sql);
-            $parameters = array(
-                ':text' => $text[$i],
-                ':e_id' => $e_id,
-                ':u_id' => $u_id[$i],
-            );
-            $query->execute($parameters);
-        }
+        $u_id = $this->getUserId();
+        $text = $this->getText();
+        $sql = "
+        update records set 
+        text = :text
+        where e_id = :e_id and u_id = :u_id
+        ";
+        $query = $this->db->prepare($sql);
+        $parameters = array(
+            ':text' => $text,
+            ':e_id' => $e_id,
+            ':u_id' => $u_id,
+        );
+        $query->execute($parameters);
     }
 
-    public function updateUserRecord($post) {
-        $u_id = $this->getUserId();
-        $e_id = $this->refreshKyes($post, 'e_id');
-        $text = $this->refreshKyes($post, 'text');
-        for($i = 0; $i < count($text); $i++) {
-            $sql = "
-            update records set 
-            text = :text
-            where u_id = :u_id and e_id = :e_id
-            ";
-            $query = $this->db->prepare($sql);
-            $parameters = array(
-                ':text' => $text[$i],
-                ':u_id' => $u_id,
-                ':e_id' => $e_id[$i],
-            );
-            $query->execute($parameters);
-        }
-    }
-    private function refreshKyes(array $post, string $preg) {
-        $flipped_array = array_flip($post);
-        $flipped_post = preg_grep("!{$preg}[0-9+]!",$flipped_array);
-        $result = array_flip($flipped_post);
-        return $result = array_values($result);
-    }
 }

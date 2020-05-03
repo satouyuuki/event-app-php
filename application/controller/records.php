@@ -36,7 +36,13 @@ class records extends Controller {
             $recordModel = new Record($this->db);
             $recordModel->setEventId($e_id);
             if($_POST) {
-                $records = $recordModel->updateEventRecord($_POST);
+                $u_id = $this->refreshKyes($_POST, 'u_id');
+                $text = $this->refreshKyes($_POST, 'text');
+                for($i = 0; $i < count($u_id); $i++)  {
+                    $recordModel->setUserId($u_id[$i]);
+                    $recordModel->setText($text[$i]);
+                    $recordModel->updateRecord();
+                }
                 header('location: ' . URL . "/records/eventRecord/$e_id");
                 exit();
             }
@@ -69,7 +75,14 @@ class records extends Controller {
             $recordModel = new Record($this->db);
             $recordModel->setUserId($u_id);
             if($_POST) {
-                $records = $recordModel->updateUserRecord($_POST);
+                $e_id = $this->refreshKyes($_POST, 'e_id');
+                $text = $this->refreshKyes($_POST, 'text');
+                for($i = 0; $i < count($e_id); $i++)  {
+                    $recordModel->setEventId($e_id[$i]);
+                    $recordModel->setText($text[$i]);
+                    $recordModel->updateRecord();
+                }
+
                 header('location: ' . URL . "/records/userRecord/$u_id");
                 exit();
             }
@@ -91,14 +104,16 @@ class records extends Controller {
     }
     public function delete(...$id) {
         $recordModel = new Record($this->db);
-        $recordModel->deleteRecord($id);
-
-        if($id[0] === "all") {
-            header('location: ' . URL . 'records/index/deleteAll');
-        } else {
+        if(is_array($id) and count($id) == 2) {
+            $recordModel->setEventId($id[0]);
+            $recordModel->setUserId($id[1]);
+            $recordModel->deleteRecord();
             header('location: ' . URL . 'records/index/deleteSuc');
+            exit();
+        }else {
+            header('location: ' . URL . 'problem');
+            exit();
         }
-        exit();
     }
 
 }

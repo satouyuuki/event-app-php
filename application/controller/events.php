@@ -155,14 +155,16 @@ class events extends Controller {
         $eventId = $id[0];
         $eventModel = new Event($this->db);
         $eventModel->setEventId($eventId);
-        $result = $eventModel->deleteEvent();
-        if($result) {
+        $result = $eventModel->checkEventId();
+        if(!empty($result)) {
             header('location: ' . URL . "events/index/deleteFail");
-        } 
-        else {
-            header('location: ' . URL . "events/index/deleteSuc");
+            exit();
         }
-        exit();
+        else {
+            $eventModel->deleteEvent();
+            header('location: ' . URL . "events/index/deleteSuc");
+            exit();
+        }
     }
 
     public function addUser(...$id) {

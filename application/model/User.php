@@ -59,5 +59,16 @@ class User extends Model{
         return $query->fetchAll();
     }
 
+    public function checkUserId() {
+        $u_id = $this->getUserId();
+        $sql = "select u_id from records where u_id = :u_id";
+        $query = $this->db->prepare($sql);
+        $parameters = array(
+            ':u_id' => $u_id
+        );
+        $query->execute($parameters);
+        return $query->fetchAll();
+    }
+
 
 }
