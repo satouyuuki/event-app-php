@@ -1,0 +1,7 @@
+.input-area {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    min-height: 350px;
+    height: auto;
+    margin-bottom: 10px;
+}

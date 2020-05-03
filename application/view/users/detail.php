@@ -2,7 +2,7 @@
 <div>
     <span>日付: </span><?= $this->h($data['user']->date); ?>
 </div>
-<div style="border: 1px solid #ccc;">
+<div class="input-area">
     <?= $data['user']->text; ?>
 </div>
 <div class="justify-content-between align-items-center">
