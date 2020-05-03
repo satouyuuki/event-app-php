@@ -1,5 +1,3 @@
-<?php
-?>
 <h1>イベント編集</h1>
 <?php if(!empty($data['errors']['top'])): ?>
   <div class="alert alert-danger">
@@ -30,19 +28,15 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-6">
+        <div class="col-md-6">
             <label for="text">イベントメモ</label>
-        </div>
-        <div class="col-6">
-            <p>プレビュー</p>
-        </div>
-        <div class="col-6">
             <div class="form-group">
-                <textarea class="form-control" name="text" id="text" cols="30" rows="10" placeholder="メモを記入してください"><?= $this->h($data["event"]->text); ?></textarea>
+                <textarea class="form-control input-area" name="text" id="text" placeholder="メモを記入してください"><?= $this->h($data["event"]->text); ?></textarea>
             </div>
         </div>
-        <div class="col-6">
-            <div class="border w-100 h-100" id="preview">
+        <div class="col-md-6">
+            <label for="preview">プレビュー</label>
+            <div class="input-area" id="preview">
             </div>
         </div>
     </div>

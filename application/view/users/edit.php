@@ -28,19 +28,15 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-6">
+        <div class="col-md-6">
             <label for="text">ユーザメモ</label>
-        </div>
-        <div class="col-6">
-            <p>プレビュー</p>
-        </div>
-        <div class="col-6">
             <div class="form-group">
-                <textarea class="form-control" name="text" id="text" cols="30" rows="10" placeholder="メモを記入してください"><?= isset($_POST['text']) ? $this->h($_POST['text']) : $this->h($data["user"]->text); ?></textarea>
+                <textarea class="form-control input-area" name="text" id="text" placeholder="メモを記入してください"><?= isset($_POST['text']) ? $this->h($_POST['text']) : $this->h($data["user"]->text); ?></textarea>
             </div>
         </div>
-        <div class="col-6">
-            <div class="border w-100 h-100" id="preview">
+        <div class="col-md-6">
+            <label for="preview">プレビュー</label>
+            <div class="input-area" id="preview">
             </div>
         </div>
     </div>

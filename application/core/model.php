@@ -158,7 +158,7 @@ class Model {
             ':text' => $text,
             ':id' => $id,
         );
-        return $query->execute($parameters);
+        $query->execute($parameters);
     }
 
 }

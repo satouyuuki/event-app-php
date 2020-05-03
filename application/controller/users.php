@@ -80,11 +80,9 @@ class users extends Controller {
                 $userModel->setMemberId($this->getCurrentMemberId());
                 $userModel->setText($_POST['text']);
                 $userModel->setDate($_POST['date']);
-                $result = $userModel->editUser();
-                if($result) {
-                    header("location: " . URL . "users/detail/$userId");
-                    exit();
-                }
+                $userModel->editUser();
+                header("location: " . URL . "users/detail/$userId");
+                exit();
             }
         }
         $user = $userModel->getUser($mode);

@@ -133,11 +133,9 @@ class events extends Controller {
                 $eventModel->setMemberId($this->getCurrentMemberId());
                 $eventModel->setText($_POST['text']);
                 $eventModel->setDate($_POST['date']);
-                $result = $eventModel->editEvent();
-                if($result) {
-                    header("location: " . URL . "events/detail/$eventId");
-                    exit();
-                }
+                $eventModel->editEvent();
+                header("location: " . URL . "events/detail/$eventId");
+                exit();
             }
         }
         $event = $eventModel->getEvent($mode);
@@ -181,16 +179,23 @@ class events extends Controller {
                     $userModel = new User($this->db);
                     $userModel->setMemberId($m_id);
                     $userModel->setName($post['name']);
-                    $userModel->addEventUser();
-                    $u_id = (int)$this->db->lastInsertId();
+                    if($userModel->checkName('users')) {
+                        $errors['top'] = $userModel->checkName('users');
+                    }
+                    else {
+                        $userModel->addEventUser();
+                        $u_id = (int)$this->db->lastInsertId();
+                    }
                 }
-                $recordModel = new Record($this->db);
-                $recordModel->setUserId($u_id);
-                $recordModel->setEventId($e_id);
-                $recordModel->setText($post['text']);
-                $recordModel->addRecord();
-                header('location: ' . URL . 'records/index');
-                exit();
+                if(!isset($errors['top'])) {
+                    $recordModel = new Record($this->db);
+                    $recordModel->setUserId($u_id);
+                    $recordModel->setEventId($e_id);
+                    $recordModel->setText($post['text']);
+                    $recordModel->addRecord();
+                    header('location: ' . URL . "records/eventRecord/$e_id");
+                    exit();
+                }
             }
         }
         $userModel = new User($this->db);

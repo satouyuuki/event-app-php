@@ -1,7 +1,3 @@
-<?php
-// var_dump($records);
-// exit();
-?>
 <h1 class="h1"><?= $data['records'][0]->u_name; ?>さんのイベント履歴</h1>
 <form method="post" name="record" id="form">
     <?php for($i = 0; $i < count($data['records']); $i++): ?>
@@ -18,25 +14,21 @@
         <?php if($data['mode'] == 'get'): ?>
             <div>
                 <p>内容:</p>
-                <div>
+                <div class="input-area">
                     <?= $data['records'][$i]->text; ?>
                 </div>
             </div>
         <?php elseif($data['mode'] == 'edit'): ?>
             <div class="row">
-                <div class="col-6">
+                <div class="col-md-6">
                     <label for="text">ユーザメモ</label>
-                </div>
-                <div class="col-6">
-                    <p>プレビュー</p>
-                </div>
-                <div class="col-6">
                     <div class="form-group">
-                        <textarea class="form-control" name="text<?= $i; ?>" cols="30" rows="10" placeholder="メモを記入してください"><?= $this->h($data["records"][$i]->text); ?></textarea>
+                        <textarea class="form-control input-area" name="text<?= $i; ?>" placeholder="メモを記入してください"><?= $this->h($data["records"][$i]->text); ?></textarea>
                     </div>
                 </div>
-                <div class="col-6">
-                    <div class="border w-100 h-100 previewFlg" id="preview<?= $i; ?>">
+                <div class="col-md-6">
+                    <label for="preview<?= $i; ?>">プレビュー</label>
+                    <div class="input-area previewFlg" id="preview<?= $i; ?>">
                     </div>
                 </div>
             </div>

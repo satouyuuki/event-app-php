@@ -15,25 +15,21 @@
         <?php if($data['mode'] == 'get'): ?>
             <div>
                 <p>内容:</p>
-                <div>
+                <div class="input-area">
                     <?= $data['records'][$i]->text; ?>
                 </div>
             </div>
         <?php elseif($data['mode'] == 'edit'): ?>
             <div class="row">
-                <div class="col-6">
-                    <label for="text">ユーザメモ</label>
-                </div>
-                <div class="col-6">
-                    <p>プレビュー</p>
-                </div>
-                <div class="col-6">
+                <div class="col-md-6">
+                    <label for="text<?= $i; ?>">ユーザメモ</label>
                     <div class="form-group">
-                        <textarea class="form-control" name="text<?= $i; ?>" cols="30" rows="10" placeholder="メモを記入してください"><?= $this->h($data["records"][$i]->text); ?></textarea>
+                        <textarea class="form-control input-area" name="text<?= $i; ?>" placeholder="メモを記入してください"><?= $this->h($data["records"][$i]->text); ?></textarea>
                     </div>
                 </div>
-                <div class="col-6">
-                    <div class="border w-100 h-100 previewFlg" id="preview<?= $i; ?>">
+                <div class="col-md-6">
+                    <label for="preview<?= $i; ?>">プレビュー</label>
+                    <div class="input-area previewFlg" id="preview<?= $i; ?>">
                     </div>
                 </div>
             </div>
@@ -42,7 +38,10 @@
     <?php endfor; ?>
 
     <?php if($data['mode'] == 'get'): ?>
-        <a class="btn btn-primary" href="/records/eventRecord/<?= $data['records'][0]->e_id; ?>/edit">編集する</a>
+        <div class="justify-content-between align-items-center">
+            <a class="btn btn-primary" href="/records/eventRecord/<?= $data['records'][0]->e_id; ?>/edit">編集する</a>
+            <a class="btn btn-primary" href="/events/addUser/<?= $this->h($data['records'][0]->e_id); ?>">ユーザーを追加する</a>
+        </div>
     <?php elseif($data['mode'] == 'edit'): ?>
         <button class="btn btn-primary" type="submit">
             更新する

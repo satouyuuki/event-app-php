@@ -29,20 +29,16 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-6">
+        <div class="col-md-6">
           <label for="text">ユーザメモ</label>
-        </div>
-        <div class="col-6">
-          <p>プレビュー</p>
-        </div>
-        <div class="col-6">
           <div class="form-group">
-              <textarea class="form-control" name="text" id="" cols="30" rows="10" placeholder="メモを記入してください"><?= isset($_POST['text']) ? $this->h($_POST['text']) : ''; ?></textarea>
+              <textarea class="form-control input-area" name="text" id="" cols="30" rows="10" placeholder="メモを記入してください"><?= isset($_POST['text']) ? $this->h($_POST['text']) : ''; ?></textarea>
           </div>
         </div>
-        <div class="col-6">
-            <div class="border w-100 h-100" id="preview">
-            </div>
+        <div class="col-md-6">
+          <label for="preview">プレビュー</label>
+          <div class="input-area" id="preview">
+          </div>
         </div>
     </div>
     <button class="btn btn-primary" type="submit">ユーザ追加</button>
