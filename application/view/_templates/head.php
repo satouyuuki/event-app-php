@@ -22,7 +22,9 @@
         echo "ユーザ画面";
     } elseif (strstr(URI, 'records')) {
         echo "履歴画面";
-    } elseif (strstr(URI, 'events')) {
+    } elseif (strstr(URI, 'problem')) {
+        echo "404画面";
+    } else {
         echo "イベント画面";
     }
     ?>
