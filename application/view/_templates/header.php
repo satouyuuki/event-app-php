@@ -8,7 +8,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <?php if($this->h(!isset($_SESSION['current_member_id']))): ?>
+        <?php if($this->utility->h(!isset($_SESSION['current_member_id']))): ?>
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a 

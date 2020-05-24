@@ -1,5 +1,7 @@
 "use strict";
 (function () {
+    document.addEventListener('submit', markParse);
+
     if (checkEditPage()) {
         const preview = document.getElementById('preview');
         textPreview(preview);
@@ -13,6 +15,14 @@
         textArrayPreview(previewFlg, previewNum);
         document.addEventListener('keyup', (event) => {
             textArrayPreview(previewFlg, previewNum);
+        });
+    }
+
+    function markParse() {
+        let inputText = document.querySelectorAll('.input-area');
+        inputText.forEach((e, i) => {
+            e.innerHTML = DOMPurify.sanitize(e.innerHTML);
+            console.log(e.innerHTML);
         });
     }
 

@@ -16,7 +16,7 @@
             <div>
                 <p>内容:</p>
                 <div class="input-area">
-                    <?= $data['records'][$i]->text; ?>
+                    <?= $this->utility->h($data['records'][$i]->text); ?>
                 </div>
             </div>
         <?php elseif($data['mode'] == 'edit'): ?>
@@ -24,7 +24,7 @@
                 <div class="col-md-6">
                     <label for="text<?= $i; ?>">ユーザメモ</label>
                     <div class="form-group">
-                        <textarea class="form-control input-area" name="text<?= $i; ?>" placeholder="メモを記入してください"><?= $this->h($data["records"][$i]->text); ?></textarea>
+                        <textarea class="form-control input-area" name="text<?= $i; ?>" placeholder="メモを記入してください"><?= $this->utility->h($data["records"][$i]->text); ?></textarea>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -39,7 +39,7 @@
     <a class="btn btn-outline-primary" href="#" onClick="history.back(); return false;">戻る</a>
     <?php if($data['mode'] == 'get'): ?>
         <a class="btn btn-primary" href="/records/eventRecord/<?= $data['records'][0]->e_id; ?>/edit">編集する</a>
-        <a class="btn btn-primary" href="/events/addUser/<?= $this->h($data['records'][0]->e_id); ?>">ユーザーを追加する</a>
+        <a class="btn btn-primary" href="/events/addUser/<?= $this->utility->h($data['records'][0]->e_id); ?>">ユーザーを追加する</a>
     <?php elseif($data['mode'] == 'edit'): ?>
         <button class="btn btn-primary" type="submit">
             更新する

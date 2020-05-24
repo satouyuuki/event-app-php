@@ -1,7 +1,7 @@
 <h1 class="h1">追加するユーザーを選択</h1>
 <?php if(!empty($data['errors']['top'])): ?>
   <div class="alert alert-danger">
-    <?= $this->h($data['errors']['top']); ?>
+    <?= $this->utility->h($data['errors']['top']); ?>
   </div>
 <?php endif; ?>
 
@@ -9,7 +9,7 @@
     <select name="users" id="users" onChange="getSelectLabel('users');">
         <option value="-1">新しいユーザ</option>
         <?php foreach ($data['users'] as $user): ?>
-            <option value="<?= $this->h($user->id); ?>"><?= $this->h($user->name); ?></option>
+            <option value="<?= $this->utility->h($user->id); ?>"><?= $this->utility->h($user->name); ?></option>
         <?php endforeach; ?>
     </select>
     <div class="form-group">
@@ -27,7 +27,7 @@
         <div class="col-md-6">
             <label for="text">追加するユーザメモ</label>
             <div class="form-group">
-                <textarea class="form-control input-area" name="text" id="text" placeholder="メモを記入してください"><?= isset($_POST['text']) ? $this->h($_POST['text']) : ''; ?></textarea>
+                <textarea class="form-control input-area" name="text" id="text" placeholder="メモを記入してください"><?= isset($_POST['text']) ? $this->utility->h($_POST['text']) : ''; ?></textarea>
             </div>
         </div>
         <div class="col-md-6">

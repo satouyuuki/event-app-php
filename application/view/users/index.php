@@ -18,10 +18,10 @@
 <ul class="list-group">
     <?php foreach ($data["users"] as $user): ?>
         <li class="list-group-item d-flex justify-content-between align-items-center">
-            <a href="/users/detail/<?= $this->h($user->id); ?>">
-                <?= $this->h($user->name); ?>
+            <a href="/users/detail/<?= $this->utility->h($user->id); ?>">
+                <?= $this->utility->h($user->name); ?>
             </a>
-            <a class="btn btn-primary" onclick="return confirm('本当に削除しますか？');" href="/users/delete/<?= $this->h($user->id); ?>">削除</a>
+            <a class="btn btn-primary" onclick="return confirm('本当に削除しますか？');" href="/users/delete/<?= $this->utility->h($user->id); ?>">削除</a>
         </li>
     <?php endforeach; ?>
 </ul>

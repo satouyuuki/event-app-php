@@ -4,9 +4,10 @@ use PDO;
 use Application\utility\Utility;
 use Application\validation\Validation;
 
-class Controller extends Utility {
-    public $db = null;
-    public $validation = null;
+class Controller {
+    protected $db;
+    protected $validation;
+    private $utility;
 
     /**
      * Controller constructor
@@ -14,6 +15,7 @@ class Controller extends Utility {
     function __construct() {
         $this->openDatabaseConnection();
         $this->validation = new Validation();
+        $this->utility = new Utility();
     }
     /**
      * Open connection database sql
@@ -34,7 +36,7 @@ class Controller extends Utility {
      * @param $view
      * @param bool $template
      */
-    public function view($view, $template = true, $data = []) {
+    public function view($view = '', $template = true, $data = []) {
         if($template) {
             require APP . 'view/_templates/head.php';
             require APP . 'view/_templates/header.php';

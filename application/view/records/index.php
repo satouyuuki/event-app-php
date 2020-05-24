@@ -13,13 +13,13 @@
 <ul class="list-group">
     <?php foreach ($data["records"] as $record): ?>
         <li class="list-group-item d-flex justify-content-between align-items-center">
-            <a href="/records/eventRecord/<?= $this->h($record->e_id); ?>">
-                <?= $this->h($record->e_name); ?>
+            <a href="/records/eventRecord/<?= $this->utility->h($record->e_id); ?>">
+                <?= $this->utility->h($record->e_name); ?>
             </a>
-            <a href="/records/userRecord/<?= $this->h($record->u_id); ?>">
-                <?= $this->h($record->u_name); ?>
+            <a href="/records/userRecord/<?= $this->utility->h($record->u_id); ?>">
+                <?= $this->utility->h($record->u_name); ?>
             </a>
-            <a class="btn btn-primary" onclick="return confirm('本当に削除しますか？');" href="/records/delete/<?= $this->h($record->e_id); ?>/<?= $this->h($record->u_id); ?>">削除</a>
+            <a class="btn btn-primary" onclick="return confirm('本当に削除しますか？');" href="/records/delete/<?= $this->utility->h($record->e_id); ?>/<?= $this->utility->h($record->u_id); ?>">削除</a>
         </li>
     <?php endforeach; ?>
 </ul>

@@ -15,7 +15,7 @@
             <div>
                 <p>内容:</p>
                 <div class="input-area">
-                    <?= $data['records'][$i]->text; ?>
+                    <?= $this->utility->h($data['records'][$i]->text); ?>
                 </div>
             </div>
         <?php elseif($data['mode'] == 'edit'): ?>
@@ -23,7 +23,7 @@
                 <div class="col-md-6">
                     <label for="text">ユーザメモ</label>
                     <div class="form-group">
-                        <textarea class="form-control input-area" name="text<?= $i; ?>" placeholder="メモを記入してください"><?= $this->h($data["records"][$i]->text); ?></textarea>
+                        <textarea class="form-control input-area" name="text<?= $i; ?>" placeholder="メモを記入してください"><?= $this->utility->h($data["records"][$i]->text); ?></textarea>
                     </div>
                 </div>
                 <div class="col-md-6">
