@@ -5,7 +5,7 @@
     let inputText = document.querySelectorAll('.input-area');
     inputText.forEach((e, i) => {
       e.innerHTML = e.innerHTML.trim();
-      e.innerHTML = unescapeHTML(marked(DOMPurify.sanitize(e.innerHTML)));
+      e.innerHTML = unescapeHTML(DOMPurify.sanitize(e.innerHTML));
     });
   }
   function unescapeHTML(target) {
