@@ -1,10 +1,10 @@
 <form method="post" class="form-layout">
-    <h1 class="h2">サインインページ</h1>
-    <?php if (isset($data['errors']['signin'])) :?>
+    <h1 class="h2">サインアップページ</h1>
+    <?php if (isset($data['errors']['signup'])) :?>
         <div class="alert alert-danger">
-            <?= $data['errors']['signin']; ?>
+            <?= $data['errors']['signup']; ?>
         </div>
-    <?php endif; unset($data['errors']['signin']); ?>
+    <?php endif; unset($data['errors']['signup']); ?>
     <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
     <div class="form-group">
         <label for="email">E-mail</label>

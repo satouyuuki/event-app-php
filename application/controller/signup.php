@@ -3,7 +3,7 @@ namespace Application\controller;
 use Application\core\Controller;
 use Application\model\Member;
 
-class Signin extends Controller {
+class Signup extends Controller {
     public function index() {
         $errors = [];
         if($_POST) {
@@ -11,19 +11,19 @@ class Signin extends Controller {
                 $errors = $this->validation->checkValudate($_POST);
                 if(empty($errors)) {
                     $member = new Member($this->db);
-                    $member = $member->signin($_POST['email'], $_POST['password']);
+                    $member = $member->signup($_POST['email'], $_POST['password']);
                     if($member) {
                         header('location: ' . URL .'/login');
                         exit();
                     }
                     else {
-                        $errors['signin'] = "そのメールアドレスは使用済みです。";
+                        $errors['signup'] = "そのメールアドレスは使用済みです。";
                     }
                 }
             }
         }
         $this->view(
-            $view = 'signin',
+            $view = 'signup',
             $template = true,
             $data = compact(
                 'errors',

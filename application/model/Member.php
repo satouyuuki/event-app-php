@@ -31,7 +31,7 @@ class Member {
         }
     }
 
-    public function signin($email, $pwd) {
+    public function signup($email, $pwd) {
         $member = $this->searchMail($email);
         if($member) {
             return null;

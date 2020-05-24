@@ -35,7 +35,7 @@
         <?php endif; ?>
         <hr><br>
     <?php endfor; ?>
-
+    <a class="btn btn-outline-primary" href="#" onClick="history.back(); return false;">戻る</a>
     <?php if($data['mode'] == 'get'): ?>
         <a class="btn btn-primary" href="/records/userRecord/<?= $data['records'][0]->u_id; ?>/edit">編集する</a>
     <?php elseif($data['mode'] == 'edit'): ?>

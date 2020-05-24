@@ -14,8 +14,8 @@
     <?php 
     if (strstr(URI, 'login')) {
         echo "ログイン画面";
-    } elseif (strstr(URI, 'signin')) {
-        echo "サインイン画面";
+    } elseif (strstr(URI, 'signup')) {
+        echo "サインアップ画面";
     } elseif (strstr(URI, 'compass')) {
         echo "コンパス検索画面";
     } elseif (strstr(URI, 'users')) {

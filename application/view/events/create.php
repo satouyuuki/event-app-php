@@ -41,5 +41,6 @@
           </div>
         </div>
     </div>
+    <a class="btn btn-outline-primary" href="#" onClick="history.back(); return false;">戻る</a>
     <button class="btn btn-primary" type="submit">イベント追加</button>
 </form>

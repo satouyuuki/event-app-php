@@ -18,9 +18,9 @@
                 </li>
                 <li class="nav-item">
                     <a 
-                    class="nav-link<?= strstr(URI, 'signin') ? ' active' : ''; ?>" 
-                    href="/signin"
-                    >サインイン</a>
+                    class="nav-link<?= strstr(URI, 'signup') ? ' active' : ''; ?>" 
+                    href="/signup"
+                    >サインアップ</a>
                 </li>
             </ul>
         <?php else: ?>

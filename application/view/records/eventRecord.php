@@ -36,12 +36,10 @@
         <?php endif; ?>
         <hr><br>
     <?php endfor; ?>
-
+    <a class="btn btn-outline-primary" href="#" onClick="history.back(); return false;">戻る</a>
     <?php if($data['mode'] == 'get'): ?>
-        <div class="justify-content-between align-items-center">
-            <a class="btn btn-primary" href="/records/eventRecord/<?= $data['records'][0]->e_id; ?>/edit">編集する</a>
-            <a class="btn btn-primary" href="/events/addUser/<?= $this->h($data['records'][0]->e_id); ?>">ユーザーを追加する</a>
-        </div>
+        <a class="btn btn-primary" href="/records/eventRecord/<?= $data['records'][0]->e_id; ?>/edit">編集する</a>
+        <a class="btn btn-primary" href="/events/addUser/<?= $this->h($data['records'][0]->e_id); ?>">ユーザーを追加する</a>
     <?php elseif($data['mode'] == 'edit'): ?>
         <button class="btn btn-primary" type="submit">
             更新する

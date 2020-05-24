@@ -5,7 +5,6 @@
 <div class="input-area">
     <?= $data['event']->text; ?>
 </div>
-<div class="justify-content-between align-items-center">
-    <a class="btn btn-primary" href="/events/edit/<?= $this->h($data['event']->id); ?>">編集する</a>
-    <a class="btn btn-primary" href="/events/addUser/<?= $this->h($data['event']->id); ?>">ユーザーを追加する</a>
-</div>
+<a class="btn btn-outline-primary" href="#" onClick="history.back(); return false;">戻る</a>
+<a class="btn btn-primary" href="/events/edit/<?= $this->h($data['event']->id); ?>">編集する</a>
+<a class="btn btn-primary" href="/events/addUser/<?= $this->h($data['event']->id); ?>">ユーザーを追加する</a>

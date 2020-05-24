@@ -62,7 +62,7 @@ class Application {
         if(!isset($_SESSION['current_member_id'])) {
             if(
                 $this->url_controller != "login" and 
-                $this->url_controller != "signin" and
+                $this->url_controller != "signup" and
                 $this->url_controller != "wellcome"
             ) {
                 header('location: ' . URL . '/wellcome');

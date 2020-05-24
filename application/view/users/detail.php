@@ -5,6 +5,5 @@
 <div class="input-area">
     <?= $data['user']->text; ?>
 </div>
-<div class="justify-content-between align-items-center">
-    <a class="btn btn-primary" href="/users/edit/<?= $this->h($data['user']->id); ?>">編集する</a>
-</div>
+<a class="btn btn-outline-primary" href="#" onClick="history.back(); return false;">戻る</a>
+<a class="btn btn-primary" href="/users/edit/<?= $this->h($data['user']->id); ?>">編集する</a>
